@@ -9,5 +9,10 @@ class Document extends Model
 {
     use HasFactory;
     protected $table = 'documents';
-    protected $fillable = ['title','description','catgory'] ;
+    protected $fillable = ['title','description','category'] ;
+
+    public function attachments(){
+        return $this->belongsToMany(\App\Models\Attachment::class,'attachment_document') ;
+    }
+
 }

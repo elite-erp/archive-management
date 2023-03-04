@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\Document;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class DocumentController extends Controller
 {
@@ -16,10 +17,18 @@ class DocumentController extends Controller
     public function index()
     {
         $documents = Document::all();
-        return response()->json([
-            'status' => 200,
-            'documents' => $documents
-        ],200);
+        if ($documents->count() > 0) {
+            return response()->json([
+                    'status' => 200,
+                    'documents' => $documents
+                ],200);
+        }
+        else {
+            return response()->json([
+                    'status' => 404,
+                    'message' => 'No Records Found'
+                ],404);
+        }
     }
 
     /**
@@ -30,7 +39,36 @@ class DocumentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'title' => 'required|max:191',
+            'description' => 'required',
+            'catgory' => 'required'
+        ]);
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 422 ,
+                'error' => $validator->messages()
+            ],422) ;
+        }else{
+            $document = Document::create([
+                'title' => $request->title ,
+                'description' => $request->description,
+                'catgory' => $request->catgory
+            ]);
+            if ($document) {
+                return response()->json([
+                    'status' => 200 ,
+                    'message' => 'Document Created Successfully'
+                ],200);
+            } else{
+                return response()->json([
+                    'status' => 500 ,
+                    'message' => 'Something Went Wrong'
+                ],500);
+            }
+            
+            
+        }
     }
 
     /**
@@ -39,9 +77,19 @@ class DocumentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Document $document)
     {
-        //
+        if ($document) {
+            return response()->json([
+                'status' => 200,
+                'document' => $document
+            ],200);
+        }else{
+            return response()->json([
+                        'status' => 404,
+                        'message' => 'No such Document Found'
+                    ],404);
+        }
     }
 
     /**
@@ -51,9 +99,40 @@ class DocumentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Document $document)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'title' => 'required|max:191',
+            'description' => 'required',
+            'catgory' => 'required'
+        ]);
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 422 ,
+                'error' => $validator->messages()
+            ],422) ;
+        }else{
+            
+            if ($document) {
+                $document->update([
+                    'title' => $request->title ,
+                    'description' => $request->description,
+                    'catgory' => $request->catgory
+                ]);
+                
+                return response()->json([
+                    'status' => 200 ,
+                    'message' => 'Document Updated Successfully'
+                ],200);
+            } else{
+                return response()->json([
+                    'status' => 500 ,
+                    'message' => 'Something Went Wrong'
+                ],500);
+            }
+            
+            
+        }
     }
 
     /**
