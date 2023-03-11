@@ -16,26 +16,31 @@ return new class extends Migration
         Schema::create('attachments', function (Blueprint $table) {
             $table->id();
             $table->string('file');
+            $table->unsignedBigInteger('document_id')->index();
             $table->timestamps();
+            $table->foreign('document_id')
+                    ->references('id')
+                    ->on('documents')
+                    ->onDelete('cascade');
         });
 
         // Pevot Table
 
-        Schema::create('attachment_document', function (Blueprint $table) {
+        // Schema::create('attachment_document', function (Blueprint $table) {
 
-            $table->integer('document_id')->unsigned();
+        //     $table->integer('document_id')->unsigned();
         
-            $table->integer('attachment_id')->unsigned();
+        //     $table->integer('attachment_id')->unsigned();
         
-            $table->foreign('document_id')->references('id')->on('documents')
+        //     $table->foreign('document_id')->references('id')->on('documents')
         
-                ->onDelete('cascade');
+        //         ->onDelete('cascade');
         
-            $table->foreign('attachment_id')->references('id')->on('attachments')
+        //     $table->foreign('attachment_id')->references('id')->on('attachments')
         
-                ->onDelete('cascade');
+        //         ->onDelete('cascade');
         
-        });
+        // });
     }
 
     /**
@@ -46,6 +51,6 @@ return new class extends Migration
     public function down()
     {
         Schema::dropIfExists('attachments');
-        Schema::dropIfExists('attachment_document');
+        // Schema::dropIfExists('attachment_document');
     }
 };
