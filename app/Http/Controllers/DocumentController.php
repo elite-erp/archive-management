@@ -16,7 +16,7 @@ class DocumentController extends Controller
      */
     public function index()
     {
-        $documents = Document::all();
+        $documents = Document::with('attachments')->orderBy('id','DESC')->paginate(10);
         if ($documents->count() > 0) {
             return response()->json([
                     'status' => 200,
