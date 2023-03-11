@@ -12,7 +12,7 @@ class Document extends Model
     protected $fillable = ['title','description','category'] ;
 
     public function attachments(){
-        return $this->belongsToMany(\App\Models\Attachment::class,'attachment_document') ;
+        return $this->hasMany(\App\Models\Attachment::class) ;
     }
 
 }

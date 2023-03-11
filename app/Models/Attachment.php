@@ -11,7 +11,7 @@ class Attachment extends Model
     protected $table = 'attachments' ;
     protected $fillable = ['attachments'] ;
 
-    public function documents(){
-        return $this->belongsToMany(\App\Models\Document::class,'attachment_document') ;
+    public function document(){
+        return $this->belongsTo(\App\Models\Document::class) ;
     }
 }
