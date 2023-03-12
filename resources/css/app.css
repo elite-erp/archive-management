@@ -1,3 +1,11 @@
+@import "./fonts.css";
+
 @tailwind base;
 @tailwind components;
+
+* {
+  direction: rtl;
+  font-family: "Cairo", sans-serif;
+}
+
 @tailwind utilities;
