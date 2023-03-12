@@ -8,9 +8,11 @@
     <title>Elite Archive</title>
 
     @vite('resources/js/app.js')
+    @inertiaHead
 </head>
 
-<body class="">
+<body>
+    @inertia
 </body>
 
 </html>
