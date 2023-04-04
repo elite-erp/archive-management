@@ -1,9 +1,9 @@
 <?php
 
-use App\Http\Controllers\API\AttachmentController;
-use App\Http\Controllers\API\AuthController;
-use App\Http\Controllers\API\CategoryController;
-use App\Http\Controllers\API\DocumentController;
+use App\Http\Controllers\AttachmentController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DocumentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
