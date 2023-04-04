@@ -5,20 +5,21 @@
       <input
         type="search"
         class="border p-3 w-[390px] outline-none border-gray-300 rounded-lg bg-white h-[54px]"
+        :placeholder="t('search')"
       />
-      <div class="flex flex-row shadow-md rounded-xl">
-        <router-link class="nav-link rounded-s-xl" to="/">
+      <div class="flex flex-row shadow-md rounded-xl items-center h-[54px]">
+        <Link class="nav-link rounded-s-xl" href="/">
           {{ t("nav.cpanel") }}
-        </router-link>
-        <router-link class="nav-link" to="/users">
+        </Link>
+        <Link class="nav-link" href="/users">
           {{ t("nav.users") }}
-        </router-link>
-        <router-link class="nav-link" to="/documents">
+        </Link>
+        <Link class="nav-link" href="/documents">
           {{ t("nav.documents") }}
-        </router-link>
-        <router-link class="nav-link rounded-e-xl" to="/categories">
+        </Link>
+        <Link class="nav-link rounded-e-xl" href="/categories">
           {{ t("nav.categories") }}
-        </router-link>
+        </Link>
       </div>
       <div class="flex flex-row items-center justify-between w-[160px]">
         <img class="h-[60px] w-[60px] rounded-full" src="/imgs/user.png" />
@@ -31,10 +32,11 @@
 
 <script lang="ts" setup>
 import { t } from "./utils.js";
+import { Link } from "@inertiajs/vue3";
 </script>
 
 <style lang="postcss" scoped>
 .nav-link {
-  @apply py-3 px-3 text-primary-800 font-semibold text-lg bg-white border-gray-300 h-full border-e;
+  @apply inline-flex justify-center items-center text-primary-800 font-semibold text-lg bg-white border-gray-300 h-full px-3 border-e hover:bg-primary-50;
 }
 </style>

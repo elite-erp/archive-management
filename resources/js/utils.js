@@ -1,6 +1,7 @@
 import _ from "lodash";
 
 let trans = {
+  search: "بحث ...",
   nav: {
     users: "المستخدمين",
     cpanel: "لوحة التحكم",

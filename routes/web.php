@@ -3,10 +3,11 @@
 use App\Http\Controllers\AttachmentController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CPanelController;
 use App\Http\Controllers\DocumentController;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,9 +19,7 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', function () {
-    return Inertia::render('cpanel');
-});
+Route::get('/', CPanelController::class);
 
 Route::post('/authenticate', [AuthController::class, 'login']);
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
