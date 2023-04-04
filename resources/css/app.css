@@ -5,7 +5,7 @@
 
 * {
   direction: rtl;
-  font-family: "Cairo", sans-serif;
+  font-family: "Cairo";
 }
 
 @tailwind utilities;
