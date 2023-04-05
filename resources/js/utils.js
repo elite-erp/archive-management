@@ -8,6 +8,18 @@ let trans = {
     documents: "المسودات",
     categories: "التصنيفات",
   },
+  login: {
+    title: "تسجيل دخول",
+    buttons: { submit: "دخول", clear: "إلغاء" },
+    user: {
+      label: "إسم المستخدم",
+      placeholder: "فلان...",
+    },
+    password: {
+      label: "كلمة المرور",
+      placeholder: "8 خانات",
+    },
+  },
 };
 
 export const t = (key) => _.get(trans, key);

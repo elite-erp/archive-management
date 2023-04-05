@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', CPanelController::class);
+Route::get('/', CPanelController::class)->name('cpanel');
 Route::get('/profile', [AuthController::class, 'profile']);
 
 Route::get('/login', [AuthController::class, 'login']);

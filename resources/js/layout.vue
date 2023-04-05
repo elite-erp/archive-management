@@ -1,7 +1,7 @@
 <template>
   <div class="bg-gray-100 h-screen w-screen">
     <nav class="flex justify-between items-center p-10 h-[88px] w-full">
-      <img src="../assets/icons/logo-text.png" />
+      <img src="/assets/icons/logo-text.png" />
       <input
         type="search"
         class="border p-3 w-[390px] outline-none border-gray-300 rounded-lg bg-white h-[54px]"
@@ -23,7 +23,7 @@
       </div>
       <div class="flex flex-row items-center justify-between w-[160px]">
         <img class="h-[60px] w-[60px] rounded-full" src="/imgs/user.png" />
-        <span>المستخدم</span>
+        <span>{{ user.name }}</span>
       </div>
     </nav>
     <slot />
@@ -32,7 +32,10 @@
 
 <script lang="ts" setup>
 import { t } from "./utils.js";
-import { Link } from "@inertiajs/vue3";
+import { Link, usePage } from "@inertiajs/vue3";
+import { computed } from "vue";
+
+const user = computed(() => usePage().props.auth.user);
 </script>
 
 <style lang="postcss" scoped>
