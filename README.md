@@ -75,23 +75,23 @@ pnpm dev
 
 ## API
 - [ ] users
-  - [ ] create
-  - [ ] find
-  - [ ] find one
-  - [ ] update
-  - [ ] delete (or archive)
+  - [# ] create
+  - [ #] find
+  - [ #] find one
+  - [ #] update
+  - [ #] delete (or archive)
 - [ ] documents
-  - [ ] create
-  - [ ] find
-  - [ ] find one
-  - [ ] update
-  - [ ] delete (or archive)
+  - [# ] create
+  - [ #] find
+  - [ #] find one
+  - [ #] update
+  - [ #] delete (or archive)
 - [ ] categories
-  - [ ] create
-  - [ ] find
-  - [ ] find one
-  - [ ] update
-  - [ ] delete (or archive)
+  - [ #] create
+  - [ #] find
+  - [ #] find one
+  - [ #] update
+  - [# ] delete (or archive)
 - [ ] attachements
   - [ ] create
   - [ ] find
