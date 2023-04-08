@@ -27,8 +27,10 @@ pnpm dev
 
 ## Features
 - [ ] Users
-  - [ ] list (+search +pagination)
-  - [ ] details
+  - [?] list (+search +pagination)
+      - search is not finished
+  - [?] details
+    - [ ] doument is not finished
   - [ ] create
   - [ ] edit
   - [ ] disable (or remove if not associated with data)
@@ -53,7 +55,7 @@ pnpm dev
   - [ ] edit
   - [ ] disable (or remove if not associated with data)
 - [ ] Auth
-  - [ ] login
+  - [x] login
   - [ ] logout
   - [ ] profile
     - [ ] documents (+ search +pagination)
