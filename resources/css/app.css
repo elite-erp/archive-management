@@ -8,4 +8,19 @@
   font-family: "Cairo";
 }
 
+@layer components {
+  .btn {
+    @apply h-[66px] w-5/12 rounded-lg text-lg font-bold focus:outline-none shadow;
+  }
+  .btn-icon {
+    @apply rounded-full bg-white shadow p-2 focus:outline-none;
+  }
+  .btn-primary {
+    @apply bg-primary-700 text-white;
+  }
+  .btn-secondary {
+    @apply bg-primary-100 text-primary-800;
+  }
+}
+
 @tailwind utilities;

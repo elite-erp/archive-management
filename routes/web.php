@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CPanelController;
 use App\Http\Controllers\DocumentController;
+use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -21,6 +22,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', CPanelController::class)->name('cpanel');
 Route::get('/profile', [AuthController::class, 'profile']);
+Route::resource('/users', UsersController::class);
 
 Route::get('/login', [AuthController::class, 'login']);
 Route::post('/authenticate', [AuthController::class, 'authenticate']);

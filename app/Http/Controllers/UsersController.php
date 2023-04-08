@@ -5,131 +5,99 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Inertia\Inertia;
 
 class UsersController extends Controller
 {
-    
+
     public function index()
     {
-        //
-        $users = User::orderBy('id','DESC')->paginate(10);
-        if ($users->count() > 0) {
-            return response()->json([
-                    'status' => 200,
-                    '$users' => $users
-                ],200);
-        }
-        else {
-            return response()->json([
-                    'status' => 404,
-                    'message' => 'No Records Found'
-                ],404);
-        }
+        $users = User::latest()->paginate(10);
 
+        return Inertia::render('users/index', compact('users'));
     }
 
-    
-    public function store(Request $request)
+
+    public function store()
     {
-        $validator = Validator::make($request->all(), [
-            'email' => 'required|max:191|email',
-            'password' => 'required',
-            'photo' => 'required' ,
-            'isAdmin' => 'nullable'
+        $data = request()->validate([
+            'name' => 'required|max:191|min:3',
+            'password' => 'required|min:8',
+            'role' => 'required|in:موظف,مدير'
         ]);
 
-        if ($validator->fails()) {
-            return response()->json([
-                'status' => 422 ,
-                'error' => $validator->messages()
-            ],422) ;
-        }else{
-            $user = User::create([
-                'email' => $request->email ,
-                'password' => $request->password,
-                'photo' => $request->photo,
-                'isAdmin' => $request->isAdmin,
-            ]);
-            if ($user) {
-                return response()->json([
-                    'status' => 200 ,
-                    'message' => 'User Created Successfully'
-                ],200);
-            } else{
-                return response()->json([
-                    'status' => 500 ,
-                    'message' => 'Something Went Wrong'
-                ],500);
-            }
-            
-            
+        if (request()->hasFile('photo')) {
+           $data['photo'] = request()->file('photo')->store('uploads/users');
+        } else {
+            $data['photo'] = "imgs/user.png";
         }
+        User::create($data);
+
+        return to_route('users.index');
     }
 
-    
+
     public function show(User $user)
     {
         if ($user) {
             return response()->json([
                 'status' => 200,
                 'user' => $user
-            ],200);
-        }else{
+            ], 200);
+        } else {
             return response()->json([
-                        'status' => 404,
-                        'message' => 'No such User Found'
-                    ],404);
+                'status' => 404,
+                'message' => 'No such User Found'
+            ], 404);
         }
     }
 
-    
 
-   
+
+
     public function update(Request $request, User $user)
     {
         $validator = Validator::make($request->all(), [
             'email' => 'required|max:191|email',
             'password' => 'required',
-            'photo' => 'required' ,
+            'photo' => 'required',
             'isAdmin' => 'nullable'
         ]);
 
         if ($validator->fails()) {
             return response()->json([
-                'status' => 422 ,
+                'status' => 422,
                 'error' => $validator->messages()
-            ],422) ;
-        }else{
-            
+            ], 422);
+        } else {
+
             if ($user) {
                 $user->update([
-                    'email' => $request->email ,
+                    'email' => $request->email,
                     'password' => $request->password,
                     'photo' => $request->photo,
                     'isAdmin' => $request->isAdmin,
                 ]);
-                
+
                 return response()->json([
-                    'status' => 200 ,
+                    'status' => 200,
                     'message' => 'User Updated Successfully'
-                ],200);
-            } else{
+                ], 200);
+            } else {
                 return response()->json([
-                    'status' => 500 ,
+                    'status' => 500,
                     'message' => 'Something Went Wrong'
-                ],500);
+                ], 500);
             }
-            
-            
         }
     }
 
-   
+
     public function destroy(User $user)
     {
         $user->delete();
         return [
-            'status' => 'OK' ,
+            'status' => 'OK',
             'message' => 'User Deleted Successfully'
         ];
     }
