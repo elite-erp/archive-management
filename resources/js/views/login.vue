@@ -18,7 +18,7 @@ function authenticate() {
     class="flex flex-col justify-center items-center h-screen w-screen bg-gray-100 py-10"
   >
     <img src="/assets/icons/logo-text.png" />
-    <e-card class="w-5/12 h-3/4 my-6">
+    <ECard class="w-5/12 h-3/4 my-6">
       <form
         @submit.prevent="authenticate"
         class="flex flex-col items-center justify-start gap-14"
@@ -46,7 +46,7 @@ function authenticate() {
           </button>
         </div>
       </form>
-    </e-card>
+    </ECard>
   </div>
 </template>
 <style lang="postcss" scoped></style>
