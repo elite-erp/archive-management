@@ -6,6 +6,7 @@
 * {
   direction: rtl;
   font-family: "Cairo";
+  /* outline: 1px solid red; */
 }
 
 @layer components {
@@ -13,7 +14,7 @@
     @apply h-[66px] w-5/12 rounded-lg text-lg font-bold focus:outline-none shadow;
   }
   .btn-icon {
-    @apply rounded-full bg-white shadow p-2 focus:outline-none;
+    @apply rounded-full bg-white shadow-md p-2 focus:outline-none;
   }
   .btn-primary {
     @apply bg-primary-700 text-white;

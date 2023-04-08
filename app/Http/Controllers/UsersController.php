@@ -39,17 +39,7 @@ class UsersController extends Controller
 
     public function show(User $user)
     {
-        if ($user) {
-            return response()->json([
-                'status' => 200,
-                'user' => $user
-            ], 200);
-        } else {
-            return response()->json([
-                'status' => 404,
-                'message' => 'No such User Found'
-            ], 404);
-        }
+        return Inertia::render('users/show', compact('user'));
     }
 
 
