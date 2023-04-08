@@ -39,7 +39,9 @@ class UsersController extends Controller
 
     public function show(User $user)
     {
-        return Inertia::render('users/show', compact('user'));
+        $documents = $user->documents()->paginate();
+
+        return Inertia::render('users/show', compact('user', 'documents'));
     }
 
 

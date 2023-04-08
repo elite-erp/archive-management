@@ -26,7 +26,7 @@ function filter(links: Record<string, any>[]) {
   <ECard class="mx-[90px] mb-10 grid-cols-5 grid gap-16">
     <Link
       v-for="user in users.data"
-      class="group rounded-lg ring-2 ring-gray-200 hover:ring-4 hover:ring-primary-500 hover:shadow-2xl w-full flex gap-4 flex-col items-center justify-around pb-4"
+      class="group rounded-lg ring-2 ring-gray-200 hover:ring-4 hover:ring-primary-500 hover:shadow-2xl w-full flex gap-4 flex-col items-center justify-between pb-4"
       v-if="users.data.length"
       :href="showUser(user.id)"
       :key="user.id"
@@ -34,10 +34,12 @@ function filter(links: Record<string, any>[]) {
       <div class="bg-gray-400 rounded-lg w-full">
         <img :src="user.photo" class="w-full object-cover h-auto" />
       </div>
-      <h1 class="text-lg font-bold group-hover:text-primary-500 text-gray-500">
+      <h1
+        class="text-lg font-bold group-hover:text-primary-500 text-center text-gray-500 px-2"
+      >
         {{ user.name }}
       </h1>
-      <span class="rounded-full bg-gray-300 py-1 px-3">
+      <span class="rounded-full bg-gray-300 py-1 px-3 mx-2 text-center">
         {{ user.role }}
       </span>
     </Link>

@@ -24,6 +24,4 @@ let trans = {
 
 export const t = (key) => _.get(trans, key);
 
-export function filterLinks(links) {
-  return links.slice(1, links.length - 1);
-}
+export const filterLinks = (links) => links.slice(1, links.length - 1);

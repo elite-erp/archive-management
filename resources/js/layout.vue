@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-gray-100 h-full w-full">
+  <div class="bg-gray-100 h-full min-h-screen w-full">
     <nav class="flex justify-between items-center p-10 h-[88px] w-full">
       <img src="/assets/icons/logo-text.png" />
       <input

@@ -1,5 +1,5 @@
 <template>
-  <EModal>
+  <EModal @close="emits('hide-modal')">
     <h1 class="font-bold text-2xl text-gray-500 text-center">تسجيل مستخدم</h1>
     <form
       @submit.prevent="storeUser"
@@ -62,14 +62,13 @@
   </EModal>
 </template>
 <script lang="ts" setup>
-import { ref } from "vue";
 import { useForm } from "@inertiajs/vue3";
 import { mdiAccountOutline, mdiLockOutline, mdiPencil } from "@mdi/js";
 import { t } from "../../utils";
 import EModal from "../../components/modal.vue";
 import EInput from "../../components/input.vue";
 
-let emits = defineEmits("hide-modal");
+let emits = defineEmits(["hide-modal"]);
 
 function selectFile() {
   document.querySelector(".user-photo-input")?.click();
