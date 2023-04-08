@@ -6,6 +6,10 @@ import UserRegister from "./user-register.vue";
 
 defineProps(["users"]);
 const modalIsVisible = ref(false);
+
+function showUser(id) {
+  return `/users/${id}`;
+}
 </script>
 <template>
   <Teleport to="body">
@@ -17,13 +21,21 @@ const modalIsVisible = ref(false);
       <e-icon :name="mdiPencil" class="text-gray-400 h-10 w-10" />
     </button>
   </header>
-  <e-card class="mx-[90px] mb-10">
-    <div v-for="user in users.data" v-if="users.data.length" :key="user.id">
-      <img :src="user.photo" />
-      <h3>
+  <e-card class="mx-[90px] mb-10 flex gap-4">
+    <div
+      v-for="user in users.data"
+      class="w-3/12 rounded-lg ring-2 ring-gray-200 flex gap-4 flex-col items-center justify-around pb-4"
+      v-if="users.data.length"
+      :href="`/users/${user.id}`"
+      :key="user.id"
+    >
+      <Link :href="showUser(user.id)" class="bg-gray-400 rounded-lg w-full">
+        <img :src="user.photo" class="w-full object-cover h-auto" />
+      </Link>
+      <Link class="text-lg font-bold text-gray-500" :href="showUser(user.id)">
         {{ user.name }}
-      </h3>
-      <span>
+      </Link>
+      <span class="rounded-full bg-gray-300 py-1 px-3">
         {{ user.role }}
       </span>
     </div>

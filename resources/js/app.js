@@ -1,5 +1,5 @@
 import { createApp, h } from "vue";
-import { createInertiaApp } from "@inertiajs/vue3";
+import { Link, createInertiaApp } from "@inertiajs/vue3";
 import "../css/app.css";
 import Layout from "./layout.vue";
 import ECard from "./components/card.vue";
@@ -17,6 +17,7 @@ createInertiaApp({
       .use(plugin)
       .component("ECard", ECard)
       .component("EIcon", EIcon)
+      .component("Link", Link)
       .mount(el);
   },
 });
