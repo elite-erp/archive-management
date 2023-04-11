@@ -1,6 +1,6 @@
 <template>
   <label class="w-full h-24 gap-2 flex flex-col-reverse relative">
-    <span v-if="error" v-text="error" class="text-sm text-red-400" />
+    <span v-if="error" v-text="error" class="error-message" />
     <!-- 
 
     set input first to use peer class to handle focus state.
