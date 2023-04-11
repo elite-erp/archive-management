@@ -1,10 +1,16 @@
 <script lang="ts" setup>
 import { mdiPencil, mdiArrowRight, mdiArrowLeft } from "@mdi/js";
-import { ref, Teleport } from "vue";
-import UserRegister from "./user-register.vue";
+import { ref, Teleport, watch } from "vue";
+import UserRegister from "./register.vue";
 
-defineProps(["users"]);
+const props = defineProps(["users", "errors"]);
+
 const modalIsVisible = ref(false);
+
+watch(props, () => {
+  if (props.errors.name || props.errors.password || props.errors.role)
+    modalIsVisible.value = true;
+});
 
 function showUser(id: string | number) {
   return `/users/${id}`;
@@ -19,8 +25,15 @@ function filter(links: Record<string, any>[]) {
   </Teleport>
   <header class="flex flex-row justify-between items-center mx-[90px] mt-4">
     <h1 class="text-2xl font-bold text-gray-500">المستخدمين</h1>
-    <button @click="modalIsVisible = true" class="btn-icon p-2 my-2">
-      <e-icon :name="mdiPencil" class="text-gray-400 h-10 w-10" />
+    <button
+      @click="modalIsVisible = true"
+      class="btn-icon px-2 py-1 my-2 flex flex-row group hover:text-primary-600 justify-between gap-2 items-center"
+    >
+      <e-icon
+        :name="mdiPencil"
+        class="text-gray-400 group-hover:text-primary-600 h-10 w-10"
+      />
+      <span class="text-gray-500 group-hover:text-primary-600">تسجيل</span>
     </button>
   </header>
   <ECard class="mx-[90px] mb-10 grid-cols-5 grid gap-16">
@@ -31,8 +44,8 @@ function filter(links: Record<string, any>[]) {
       :href="showUser(user.id)"
       :key="user.id"
     >
-      <div class="bg-gray-400 rounded-lg w-full">
-        <img :src="user.photo" class="w-full object-cover h-auto" />
+      <div class="bg-gray-400 rounded-lg w-full h-2/3">
+        <img :src="user.photo" class="w-full object-cover h-full rounded-lg" />
       </div>
       <h1
         class="text-lg font-bold group-hover:text-primary-500 text-center text-gray-500 px-2"

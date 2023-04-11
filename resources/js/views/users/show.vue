@@ -1,21 +1,49 @@
 <script lang="ts" setup>
 import { mdiPencil, mdiArrowRight, mdiArrowLeft } from "@mdi/js";
-import { ref } from "vue";
-import { filterLinks } from "../../utils";
-const { user, documents } = defineProps(["user", "documents"]);
+import UserEdit from "./edit.vue";
+import { ref, watch } from "vue";
+import { uploadPhoto, filterLinks, fileSelector } from "../../utils";
+
+const props = defineProps(["user", "documents", "errors"]);
 const modalIsVisible = ref(false);
+
+watch(props, () => {
+  if (props.errors.name || props.errors.password || props.errors.role)
+    modalIsVisible.value = true;
+});
 </script>
 <template>
   <Teleport to="body">
-    <UserRegister @hide-modal="modalIsVisible = false" v-if="modalIsVisible" />
+    <UserEdit
+      :user="user"
+      @hide-modal="modalIsVisible = false"
+      v-if="modalIsVisible"
+    />
   </Teleport>
   <div class="flex flex-row justify-between gap-10 w-11/12 mx-auto">
     <div class="w-3/12 flex flex-col items-center gap-4">
       <div class="flex flex-row justify-center items-center">
-        <img
-          :src="`/${user.photo}`"
-          class="object-cover h-[192px] w-[192px] rounded-full"
-        />
+        <label class="flex flex-row relative w-36 h-36">
+          <img
+            :src="user.photo"
+            class="edit-user-photo h-36 w-36 rounded-full ring-4 object-cover ring-gray-200"
+          />
+          <input
+            type="file"
+            class="hidden user-photo-input"
+            accept="image/*"
+            @input.prevent="
+              (e) => uploadPhoto(e, '.edit-user-photo', `/users/${user.id}`)
+            "
+          />
+          <button
+            class="btn-icon absolute bg-green-100 top-24 left-0 shadow-md"
+            type="button"
+            @click.prevent="fileSelector('.edit-user-photo')"
+          >
+            <EIcon :name="mdiPencil" class="text-green-600 h-10 w-10" />
+          </button>
+        </label>
       </div>
       <h1 class="text-lg font-bold group-hover:text-primary-500 text-gray-500">
         {{ user.name }}
