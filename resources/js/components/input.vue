@@ -1,5 +1,6 @@
 <template>
   <label class="w-full h-24 gap-2 flex flex-col-reverse relative">
+    <span v-if="error" v-text="error" class="text-sm text-red-400" />
     <!-- 
 
     set input first to use peer class to handle focus state.
@@ -10,19 +11,20 @@
     (e: any) is typescript syntax
     -->
     <input
-      :value="props.modelValue"
-      :type="props.type ? props.type : 'text'"
-      class="peer h-16 pl-3 py-2 pr-12 border border-gray-400 outline-none text-gray-600 focus:outline-none rounded-lg focus:border-primary-700"
-      :placeholder="t(props.placeholder)"
+      :value="modelValue"
+      :type="type ? type : 'text'"
+      class="peer h-16 pl-4 py-2 border border-gray-400 outline-none text-gray-600 focus:outline-none rounded-lg focus:border-primary-700"
+      :placeholder="t(placeholder)"
+      :class="icon.length ? 'pr-12' : 'pr-4'"
       @input.prevent="(e: any) => emits('update:modelValue', e.target?.value)"
     />
     <span class="text-gray-600 peer-focus:text-primary-800 text-sm">{{
-      t(props.label)
+      t(label)
     }}</span>
     <icon
       class="w-6 h-6 absolute right-4 bottom-[20px] text-gray-500 peer-focus:text-primary-800"
-      v-if="props.icon"
-      :name="props.icon"
+      v-if="icon"
+      :name="icon"
     />
   </label>
 </template>
@@ -30,7 +32,7 @@
 import { t } from "../utils";
 import icon from "./icon.vue";
 
-let props = defineProps(["label", "icon", "placeholder", "modelValue", "type"]);
+defineProps(["label", "icon", "placeholder", "modelValue", "type", "error"]);
 
 let emits = defineEmits(["update:modelValue"]);
 </script>
