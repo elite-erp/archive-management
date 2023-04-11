@@ -1,6 +1,4 @@
-import _ from "lodash";
-
-let trans = {
+export default {
   search: "بحث ...",
   nav: {
     users: "المستخدمين",
@@ -20,8 +18,9 @@ let trans = {
       placeholder: "8 خانات",
     },
   },
+  users: {
+    buttons: {
+      submit: "حفظ",
+    },
+  },
 };
-
-export const t = (key) => _.get(trans, key);
-
-export const filterLinks = (links) => links.slice(1, links.length - 1);
