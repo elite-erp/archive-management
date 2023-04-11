@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
 use Inertia\Inertia;
 
 class UsersController extends Controller
@@ -27,10 +26,15 @@ class UsersController extends Controller
         ]);
 
         if (request()->hasFile('photo')) {
-           $data['photo'] = request()->file('photo')->store('uploads/users');
+            $data['photo'] = '/' . request()->file('photo')->store('uploads/users');
         } else {
-            $data['photo'] = "imgs/user.png";
+            $data['photo'] = "/imgs/user.png";
         }
+
+        if (request()->has('password')) {
+            $data['password'] = Hash::make($data['password']);
+        }
+
         User::create($data);
 
         return to_route('users.index');
@@ -44,44 +48,37 @@ class UsersController extends Controller
         return Inertia::render('users/show', compact('user', 'documents'));
     }
 
-
-
-
-    public function update(Request $request, User $user)
+    public function uploadPhoto($id)
     {
-        $validator = Validator::make($request->all(), [
-            'email' => 'required|max:191|email',
-            'password' => 'required',
-            'photo' => 'required',
-            'isAdmin' => 'nullable'
+        $user = User::find($id);
+        $photo = '';
+        if (request()->hasFile('photo')) {
+            $photo = '/' . request()->file('photo')->store('uploads/users');
+        }
+
+        $user->update([
+            'photo' => $photo
         ]);
 
-        if ($validator->fails()) {
-            return response()->json([
-                'status' => 422,
-                'error' => $validator->messages()
-            ], 422);
-        } else {
+        return to_route('users.show', $user->id);
+    }
 
-            if ($user) {
-                $user->update([
-                    'email' => $request->email,
-                    'password' => $request->password,
-                    'photo' => $request->photo,
-                    'isAdmin' => $request->isAdmin,
-                ]);
+    public function update(User $user)
+    {
+        $data = request()->validate([
+            'name' => 'max:191|min:3',
+            'password' => 'min:8',
+            'role' => 'in:موظف,مدير'
+        ]);
 
-                return response()->json([
-                    'status' => 200,
-                    'message' => 'User Updated Successfully'
-                ], 200);
-            } else {
-                return response()->json([
-                    'status' => 500,
-                    'message' => 'Something Went Wrong'
-                ], 500);
-            }
+        if (request()->has('password')) {
+            $data['password'] = Hash::make($data['password']);
         }
+
+        $user->fill($data);
+        $user->save();
+
+        return to_route('users.show', $user->id);
     }
 
 

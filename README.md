@@ -30,9 +30,13 @@ pnpm dev
   - [?] list (+search +pagination)
       - search is not finished
   - [?] details
-    - [ ] doument is not finished
-  - [ ] create
-  - [ ] edit
+    - [ ] documents list is not finished
+  - [x] create
+      - [x] support validation errors
+  - [x] edit
+    - [x] validation errors
+    - [x] photo upload
+    - [x] password change
   - [ ] disable (or remove if not associated with data)
 - [ ] Categories
   - [ ] list (+search +documents)
@@ -69,18 +73,25 @@ pnpm dev
 
 
 ## components
-- [ ] input (+radio +textarea +select +error support)
-- [ ] button
-- [ ] modal
-- [ ] flash message
+- [?] input
+    - [x] error
+    - [x] type
+    - [x] icons
+    - [x] placeholder
+    - [ ] select
+    - [ ] radio
+    - [ ] textarea
+- [x] button
+- [x] modal
+- [-] flash message
 
 
 ## API
-- [ ] users
-  - [# ] create
-  - [ #] find
-  - [ #] find one
-  - [ #] update
+- [?] users
+  - [x] create
+  - [x] find
+  - [x] find one
+  - [x] update
   - [ #] delete (or archive)
 - [ ] documents
   - [# ] create
