@@ -5,6 +5,8 @@ export default {
     cpanel: "لوحة التحكم",
     documents: "المسودات",
     categories: "التصنيفات",
+    profile: "ملف المستخدم",
+    logout: 'خروج'
   },
   login: {
     title: "تسجيل دخول",

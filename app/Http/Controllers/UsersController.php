@@ -11,7 +11,7 @@ class UsersController extends Controller
 
     public function index()
     {
-        $users = User::latest()->paginate(10);
+        $users = User::select(['name','photo', 'role', 'id'])->latest()->paginate(10);
 
         return Inertia::render('users/index', compact('users'));
     }

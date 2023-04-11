@@ -25,6 +25,7 @@ Route::post('/authenticate', [AuthController::class, 'authenticate']);
 Route::middleware('auth')->group(function () {
     Route::get('/', CPanelController::class)->name('cpanel');
     Route::get('/profile', [AuthController::class, 'profile']);
+    Route::post('/logout', [AuthController::class, 'logout']);
     Route::post('/users/{id}', [UsersController::class, 'uploadPhoto']);
     Route::resource('/users', UsersController::class);
 

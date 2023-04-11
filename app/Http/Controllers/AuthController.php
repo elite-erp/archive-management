@@ -46,7 +46,11 @@ class AuthController extends Controller
     public function profile()
     {
         return Inertia::render('profile', [
-            'user' => User::first()
+            'user' => auth()->user()
         ]);
+    }
+    public function logout() {
+        auth()->logout();
+        return to_route('login');
     }
 }

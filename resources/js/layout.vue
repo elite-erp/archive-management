@@ -21,11 +21,28 @@
           {{ t("nav.categories") }}
         </Link>
       </div>
-      <div class="flex flex-row items-center justify-between w-[160px]">
-        <img class="h-[60px] w-[60px] rounded-full" src="/imgs/user.png" />
-        <span>{{ user.name }}</span>
+      <div
+        class="flex flex-col justify-start w-[160px]"
+        @click.prevent="activeUserMenu = !activeUserMenu"
+      >
+        <div class="flex flex-row items-center justify-between">
+          <img class="h-[60px] w-[60px] rounded-full" src="/imgs/user.png" />
+          <span>{{ user.name }}</span>
+        </div>
       </div>
     </nav>
+    <div
+      v-if="activeUserMenu"
+      class="absolute top-20 w-36 left-10 flex flex-col items-center text-primary-600 justify-center rounded-lg bg-white text-center divide-y divide-gray-200 z-10 shadow-md"
+    >
+      <Link href="/profile" v-text="t('nav.profile')" class="py-4 w-full" />
+      <Link
+        href="/logout"
+        method="post"
+        v-text="t('nav.logout')"
+        class="py-4 w-full"
+      />
+    </div>
     <slot />
   </div>
 </template>
@@ -33,9 +50,10 @@
 <script lang="ts" setup>
 import { t } from "./utils.js";
 import { Link, usePage } from "@inertiajs/vue3";
-import { computed } from "vue";
+import { computed, ref } from "vue";
 
-const user = computed(() => usePage().props.auth.user);
+const user = computed(() => usePage().props?.auth?.user);
+const activeUserMenu = ref(false);
 </script>
 
 <style lang="postcss" scoped>
