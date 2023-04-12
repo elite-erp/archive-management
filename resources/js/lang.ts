@@ -32,5 +32,29 @@ export default {
       submit: "حفظ",
     },
   },
+  documents: {
+    title: {
+      label: 'العنوان',
+      placeholder: 'الوثيقة الفلانية ...'
+    },
+    description: {
+      label: 'الوصف',
+      placeholder: 'تفاصيل المسودة'
+    },
+     tags: {
+      label: 'الوسوم',
+      placeholder: 'عقد ، عمل ، فاتورة ...'
+    },
+
+     category: {
+      label: 'التصنيف',
+      placeholder: 'واردات ... صادرات ...'
+    },
+
+     attachements: {
+      label: 'مرفقات',
+      placeholder: 'رفع ملفات المسودة'
+    },
+   },
   buttons: { submit: "حفظ", clear: "إلغاء" },
 };

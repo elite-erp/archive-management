@@ -142,6 +142,7 @@ return [
     'uuid'                 => 'حقل :attribute يجب أن يكون بصيغة UUID سليمة.',
     'attributes'           => [
         'address'                  => 'العنوان',
+        'category_id'              => 'التصنيف',
         'label'                    => 'العنوان',
         'age'                      => 'العمر',
         'amount'                   => 'الكمية',

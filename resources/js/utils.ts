@@ -14,12 +14,12 @@ export function fileSelector(selector: string) {
 }
 
 export function changePhoto(e: any, imgSelector: string, obj: any) {
-  handlePhoto(e, imgSelector, (file: any) => {
-    obj.photo = file
+  handlePhoto(e, imgSelector, (files: any) => {
+    obj.photo = files[0]
   })
 }
 
-function handlePhoto(e: any, selector: string, callback: Function) {
+export function handlePhoto(e: any, selector: string, callback: Function) {
   e.target.onchange = (fileChange: any) => {
     if (fileChange.target.files.length) {
 
@@ -37,9 +37,9 @@ function handlePhoto(e: any, selector: string, callback: Function) {
 }
 
 export function uploadPhoto(e: any, imgSelector: string, url: string) {
-  handlePhoto(e, imgSelector, (file: any) => {
+  handlePhoto(e, imgSelector, (files: any) => {
     router.post(url, {
-      photo: file
+      photo: files[0]
     }, {
       forceFormData: true
     })

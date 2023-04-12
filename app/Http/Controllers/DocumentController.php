@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Attachment;
+use App\Models\Category;
 use App\Models\Document;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Inertia\Inertia;
 
 class DocumentController extends Controller
 {
@@ -16,59 +19,63 @@ class DocumentController extends Controller
      */
     public function index()
     {
-        $documents = Document::with('attachments')->orderBy('id','DESC')->paginate(10);
-        if ($documents->count() > 0) {
-            return response()->json([
-                    'status' => 200,
-                    'documents' => $documents
-                ],200);
-        }
-        else {
-            return response()->json([
-                    'status' => 404,
-                    'message' => 'No Records Found'
-                ],404);
-        }
+        $documents = Document::with('category')->with('attachments', function ($query) {
+            $query->first();
+        })->latest()->paginate(10)->through(
+            fn ($document) => [
+                'id' => $document->id,
+                'title' => $document->title,
+                'category' => $document->category,
+                'attachment' => Attachment::where('document_id', $document->id)->first()->only('path')
+            ]
+        );
+
+        return Inertia::render('documents/index', compact('documents'));
     }
+    /**
+     * create
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        $categories = Category::select('label', 'id')->get();
+        return Inertia::render('documents/register', compact('categories'));
+    }
+
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store()
     {
-        $validator = Validator::make($request->all(), [
+        $data = request()->validate([
             'title' => 'required|max:191',
             'description' => 'required',
-            'catgory' => 'required'
+            'category_id' => 'required|numeric|exists:categories,id',
+            "attachments.*" => "required|file|mimes:jpeg,png,jpg|max:20000"
         ]);
-        if ($validator->fails()) {
-            return response()->json([
-                'status' => 422 ,
-                'error' => $validator->messages()
-            ],422) ;
-        }else{
-            $document = Document::create([
-                'title' => $request->title ,
-                'description' => $request->description,
-                'catgory' => $request->catgory
-            ]);
-            if ($document) {
-                return response()->json([
-                    'status' => 200 ,
-                    'message' => 'Document Created Successfully'
-                ],200);
-            } else{
-                return response()->json([
-                    'status' => 500 ,
-                    'message' => 'Something Went Wrong'
-                ],500);
+
+        $data['created_by'] = $data['updated_by'] = auth()->id();
+
+        $document = Document::create($data);
+
+        if (request()->hasFile('attachments')) {
+            foreach (request()->file('attachments') as $attachment) {
+                $name = $attachment->getClientOriginalName();
+                $path = '/' . $attachment->storeAs('uploads/attachments', $name);
+                Attachment::create([
+                    'path' => $path,
+                    'created_by' => auth()->id(),
+                    'document_id' => $document->id
+                ]);
             }
-            
-            
         }
+
+
+        return to_route('documents.show', $document->id);
     }
 
     /**
@@ -79,17 +86,10 @@ class DocumentController extends Controller
      */
     public function show(Document $document)
     {
-        if ($document) {
-            return response()->json([
-                'status' => 200,
-                'document' => $document
-            ],200);
-        }else{
-            return response()->json([
-                        'status' => 404,
-                        'message' => 'No such Document Found'
-                    ],404);
-        }
+        $document->load('attachments');
+        $document->load('category');
+
+        return Inertia::render('documents/show', compact('document'));
     }
 
     /**
@@ -108,30 +108,28 @@ class DocumentController extends Controller
         ]);
         if ($validator->fails()) {
             return response()->json([
-                'status' => 422 ,
+                'status' => 422,
                 'error' => $validator->messages()
-            ],422) ;
-        }else{
-            
+            ], 422);
+        } else {
+
             if ($document) {
                 $document->update([
-                    'title' => $request->title ,
+                    'title' => $request->title,
                     'description' => $request->description,
                     'catgory' => $request->catgory
                 ]);
-                
+
                 return response()->json([
-                    'status' => 200 ,
+                    'status' => 200,
                     'message' => 'Document Updated Successfully'
-                ],200);
-            } else{
+                ], 200);
+            } else {
                 return response()->json([
-                    'status' => 500 ,
+                    'status' => 500,
                     'message' => 'Something Went Wrong'
-                ],500);
+                ], 500);
             }
-            
-            
         }
     }
 
@@ -145,7 +143,7 @@ class DocumentController extends Controller
     {
         $document->delete();
         return [
-            'status' => 'OK' ,
+            'status' => 'OK',
             'message' => 'Document Deleted Successfully'
         ];
     }

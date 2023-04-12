@@ -1,13 +1,5 @@
 <?php
 
-use App\Http\Controllers\AttachmentController;
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\DocumentController;
-use App\Http\Controllers\UsersController;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -19,12 +11,3 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('/authenticate', [AuthController::class, 'login']);
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
-Route::apiResource('documents', DocumentController::class );
-Route::apiResource('categories', CategoryController::class );
-Route::apiResource('attachments', AttachmentController::class);
-Route::apiResource('users', UsersController::class);

@@ -15,14 +15,19 @@ return new class extends Migration
     {
         Schema::create('attachments', function (Blueprint $table) {
             $table->id();
-            $table->string('file');
+            $table->string('path');
             $table->unsignedBigInteger('document_id')->index();
             $table->timestamps();
+            $table->unsignedBigInteger('created_by');
             $table->foreign('document_id')
                     ->references('id')
                     ->on('documents')
                     ->onDelete('cascade');
-        });
+            $table->foreign('created_by')
+                    ->references('id')
+                    ->on('users')
+                    ->onDelete('cascade');
+         });
 
         // Pevot Table
 

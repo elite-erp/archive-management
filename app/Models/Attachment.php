@@ -8,10 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Attachment extends Model
 {
     use HasFactory;
-    protected $table = 'attachments' ;
-    protected $fillable = ['attachments'] ;
+    protected $table = 'attachments';
+    protected $fillable = ['path', 'document_id', 'created_by'];
 
-    public function document(){
-        return $this->belongsTo(\App\Models\Document::class) ;
+    public function document()
+    {
+        return $this->belongsTo(Document::class);
     }
 }
