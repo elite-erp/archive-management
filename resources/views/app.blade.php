@@ -4,8 +4,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>Elite Archive</title>
+    <link rel="icon" href="/assets/icons/logo.png" />
+    <title>إلايت أرشيف</title>
 
     @vite('resources/js/app.js')
     @inertiaHead
