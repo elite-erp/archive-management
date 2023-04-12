@@ -4,6 +4,7 @@ import "../css/app.css";
 import Layout from "./layout.vue";
 import ECard from "./components/card.vue";
 import EIcon from "./components/icon.vue";
+import EInput from "./components/input.vue";
 
 createInertiaApp({
   resolve: (name) => {
@@ -17,6 +18,7 @@ createInertiaApp({
       .use(plugin)
       .component("ECard", ECard)
       .component("EIcon", EIcon)
+      .component("EInput", EInput)
       .component("Link", Link)
       .mount(el);
   },
