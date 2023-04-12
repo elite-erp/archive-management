@@ -43,7 +43,7 @@ class UsersController extends Controller
 
     public function show(User $user)
     {
-        $documents = $user->documents()->paginate();
+        $documents = $user->documents()->with('category','attachments')->latest()->paginate(10);
 
         return Inertia::render('users/show', compact('user', 'documents'));
     }

@@ -30,7 +30,7 @@ pnpm dev
   - [?] list (+search +pagination)
       - search is not finished
   - [?] details
-    - [ ] documents list is not finished
+    - [?] documents (+search)
   - [x] create
       - [x] support validation errors
   - [x] edit
@@ -39,30 +39,30 @@ pnpm dev
     - [x] password change
   - [ ] disable (or remove if not associated with data)
 - [ ] Categories
-  - [ ] list (+search +documents)
-    - [ ] grid view
+  - [x] list (+search +documents)
+    - [x] grid view
     - [ ] list view
-  - [ ] details
-    - [ ] documents
-  - [ ] create
-  - [ ] edit
+  - [x] details
+    - [x] documents
+  - [x] create
+  - [x] edit
   - [ ] disable (or remove if not associated with data)
 - [ ] Documents
-  - [ ] list (+search +pagination)
+  - [?] list (+search +pagination)
     - [ ] aside view
-    - [ ] grid view
-  - [ ] details
-    - [ ] print
+    - [x] grid view
+  - [?] details
+    - [x] print
     - [ ] add attachments
     - [ ] remove attachements
-  - [ ] create
-  - [ ] edit
+  - [x] create
+  - [x] edit
   - [ ] disable (or remove if not associated with data)
-- [ ] Auth
+- [?] Auth
   - [x] login
   - [x] logout
-  - [x] profile
-    - [?] documents (+ search +pagination)
+  - [?] profile
+    - [?] documents (+search +pagination)
     - [x] change password or name
 - [ ] CPanel
   - [ ] chart
@@ -78,13 +78,14 @@ pnpm dev
     - [x] type
     - [x] icons
     - [x] placeholder
-    - [ ] select
     - [ ] radio
     - [ ] textarea
 - [x] button
 - [x] modal
 - [-] flash message
-
+- [x] pagination
+- [x] icon
+- [x] select
 
 ## API
 - [?] users
@@ -92,19 +93,19 @@ pnpm dev
   - [x] find
   - [x] find one
   - [x] update
-  - [x] delete (or archive)
+  - [?] delete (or archive)
 - [ ] documents
   - [x] create
   - [x] find
   - [x] find one
   - [x] update
-  - [x] delete (or archive)
+  - [?] delete (or archive)
 - [ ] categories
   - [x] create
   - [x] find
   - [x] find one
   - [x] update
-  - [x] delete (or archive)
+  - [?] delete (or archive)
 - [ ] attachements
   - [ ] create
   - [ ] find

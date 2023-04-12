@@ -57,15 +57,31 @@ watch(props, () => {
       </div>
     </div>
     <ECard class="w-9/12 mb-10">
-      <h1 class="font-bold text-xl text-gray-500">المسودات</h1>
-      <div class="w-full grid grid-cols-5 gap-16">
+      <h1 class="font-bold text-xl text-gray-500 mb-4">المسودات</h1>
+      <div class="w-full grid grid-cols-3 gap-10">
         <Link
           v-for="document in documents.data"
-          class="group rounded-lg ring-2 ring-gray-200 hover:ring-4 hover:ring-primary-500 hover:shadow-2xl w-full flex gap-4 flex-col items-center justify-around pb-4"
+          class="h-80 group rounded-lg relative ring-2 ring-gray-200 hover:ring-4 hover:ring-primary-500 hover:shadow-2xl w-full flex gap-4 flex-col items-center justify-between pb-4"
           v-if="documents.data.length"
           :href="`/documents/${document.id}`"
-          :key="user.id"
+          :key="document.id"
         >
+          <img
+            :src="document.attachments[0]?.path"
+            class="absolute w-full object-cover h-80 rounded-lg"
+          />
+          <div
+            class="bg-gray-500/50 absolute bottom-0 flex flex-col justify-around items-center rounded-lg w-full h-1/3"
+          >
+            <h1
+              class="text-lg font-bold group-hover:text-primary-800 text-center text-gray-800 px-2"
+            >
+              {{ document.title }}
+            </h1>
+            <span class="rounded-full bg-white py-1 px-3 mx-2 text-center">
+              {{ document.category.label }}
+            </span>
+          </div>
         </Link>
       </div>
     </ECard>

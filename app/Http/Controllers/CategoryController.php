@@ -18,7 +18,7 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::select(['label', 'id'])->withCount('documents')->with('documents', function ($query) {
-            return $query->latest()->limit(5);
+            $query->with('category','attachments')->latest()->limit(5);
         })->latest()->paginate(5);
         return Inertia::render('categories/index', compact(
             'categories'
@@ -46,7 +46,7 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        $documents = $category->documents()->latest()->paginate(10);
+        $documents = $category->documents()->with('category','attachments')->latest()->paginate(10);
 
         return Inertia::render('categories/show', compact('category', 'documents'));
     }

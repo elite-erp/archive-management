@@ -35,7 +35,7 @@ class AuthController extends Controller
     {
         return Inertia::render('profile', [
             'user' => auth()->user(),
-            'documents' => auth()->user()->documents()->latest()->paginate(10)
+            'documents' => auth()->user()->documents()->with('category', 'attachments')->latest()->paginate(10)
         ]);
     }
     public function logout()

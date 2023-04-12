@@ -1,5 +1,4 @@
 import _ from "lodash";
-import { Ref } from "vue";
 import trans from "./lang";
 import { router } from "@inertiajs/vue3";
 
@@ -8,7 +7,7 @@ export const t = (key: string) => _.get(trans, key);
 export const filterLinks = (links: any[]) => links.slice(1, links.length - 1);
 
 export function fileSelector(selector: string) {
-  let element: HTMLInputElement = document.querySelector(selector)
+  let element: HTMLInputElement | null = document.querySelector(selector)
 
   if (element != null) element.click();
 }
@@ -29,8 +28,8 @@ export function handlePhoto(e: any, selector: string, callback: Function) {
 
       reader.onload = (readerEvent) => {
         let photo: any = document.querySelector(selector);
-        if (photo != null) photo.src = readerEvent.target.result; // this is the content!
-        callback(fileChange.target.files[0])
+        if (photo != null) photo.src = readerEvent.target?.result; // this is the content!
+        callback(fileChange.target.files)
       };
     }
   };

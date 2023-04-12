@@ -43,28 +43,31 @@ watch(props, () => {
       </Link>
       <ECard
         v-if="category.documents.length"
-        class="mb-10 grid-cols-5 grid gap-16"
+        class="mb-10 grid-cols-4 grid gap-10"
       >
         <Link
           v-for="document in category.documents"
-          class="group rounded-lg ring-2 ring-gray-200 hover:ring-4 hover:ring-primary-500 hover:shadow-2xl w-full flex gap-4 flex-col items-center justify-between pb-4"
+          class="h-80 group rounded-lg relative ring-2 ring-gray-200 hover:ring-4 hover:ring-primary-500 hover:shadow-2xl w-full flex gap-4 flex-col items-center justify-between pb-4"
+          v-if="category.documents.length"
           :href="`/documents/${document.id}`"
           :key="document.id"
         >
-          <div class="bg-gray-400 rounded-lg w-full h-2/3">
-            <img
-              :src="document.photo"
-              class="w-full object-cover h-full rounded-lg"
-            />
-          </div>
-          <h1
-            class="text-lg font-bold group-hover:text-primary-500 text-center text-gray-500 px-2"
+          <img
+            :src="document.attachments[0]?.path"
+            class="absolute w-full object-cover h-80 rounded-lg"
+          />
+          <div
+            class="bg-gray-500/50 absolute bottom-0 flex flex-col justify-around items-center rounded-lg w-full h-1/3"
           >
-            {{ document.title }}
-          </h1>
-          <span class="rounded-full bg-gray-300 py-1 px-3 mx-2 text-center">
-            {{ document.tag }}
-          </span>
+            <h1
+              class="text-lg font-bold group-hover:text-primary-800 text-center text-gray-800 px-2"
+            >
+              {{ document.title }}
+            </h1>
+            <span class="rounded-full bg-white py-1 px-3 mx-2 text-center">
+              {{ document.category.label }}
+            </span>
+          </div>
         </Link>
       </ECard>
     </div>

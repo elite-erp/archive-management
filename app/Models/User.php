@@ -36,6 +36,6 @@ class User extends Authenticatable
 
 
     public function documents() {
-        return $this->hasMany(Document::class);
+        return $this->hasMany(Document::class, 'created_by');
     }
 }
