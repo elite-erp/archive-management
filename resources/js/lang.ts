@@ -8,6 +8,13 @@ export default {
     profile: "ملف المستخدم",
     logout: 'خروج'
   },
+  categories: {
+    buttons: { submit: "حفظ", clear: "إلغاء" },
+    form: {
+      label: 'العنوان',
+      placeholder: 'الواردات ... الصادرات ...'
+    }
+  },
   login: {
     title: "تسجيل دخول",
     buttons: { submit: "دخول", clear: "إلغاء" },
@@ -25,4 +32,5 @@ export default {
       submit: "حفظ",
     },
   },
+  buttons: { submit: "حفظ", clear: "إلغاء" },
 };

@@ -24,7 +24,7 @@ class CategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required','min:5','max:50']
+            'label' => 'required|min:5|max:50|unique:categories,label'
         ];
     }
 }

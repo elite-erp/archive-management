@@ -20,9 +20,9 @@ class CategoryController extends Controller
         $categories = Category::select(['label', 'id'])->withCount('documents')->with('documents', function ($query) {
             return $query->latest()->limit(5);
         })->latest()->paginate(5);
-        return Inertia::render('categories/index', [
-                'categories' => $categories
-            ]);
+        return Inertia::render('categories/index', compact(
+            'categories'
+        ));
     }
 
     /**
@@ -33,8 +33,9 @@ class CategoryController extends Controller
      */
     public function store(CategoryRequest $request)
     {
-        $category = Category::create($request->all());
-        return new CategoryResource($category);
+        Category::create($request->only('label'));
+
+        return to_route('categories.index');
     }
 
     /**
@@ -45,7 +46,7 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-         return new CategoryResource($category);
+        return new CategoryResource($category);
     }
 
     /**
@@ -72,7 +73,7 @@ class CategoryController extends Controller
     {
         $category->delete();
         return [
-            'status' => 'OK' ,
+            'status' => 'OK',
             'message' => 'Category Deleted Successfully'
         ];
     }
