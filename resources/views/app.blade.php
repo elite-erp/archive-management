@@ -7,7 +7,7 @@
     <link rel="icon" href="/assets/icons/logo.png" />
     <title>إلايت أرشيف</title>
 
-    @vite('resources/js/app.js')
+    @vite('resources/js/app.ts')
     @inertiaHead
 </head>
 

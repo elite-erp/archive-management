@@ -93,6 +93,19 @@ class DocumentController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function showPrint($id)
+    {
+        $document = Document::find($id)->load('attachments');
+
+        return Inertia::render('documents/show-print', compact('document'));
+    }
+
+    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request

@@ -30,6 +30,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('/users', UsersController::class);
 
 
+    Route::get('/documents/{id}/print', [DocumentController::class, 'showPrint']);
     Route::resource('documents', DocumentController::class);
     Route::resource('categories', CategoryController::class);
     Route::resource('attachments', AttachmentController::class);
