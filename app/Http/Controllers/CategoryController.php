@@ -4,10 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoryRequest;
-use App\Http\Resources\CategoryCollection;
 use App\Http\Resources\CategoryResource;
 use App\Models\Category;
-use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class CategoryController extends Controller
 {
@@ -18,8 +17,12 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
-        return new CategoryCollection($categories);
+        $categories = Category::select(['label', 'id'])->withCount('documents')->with('documents', function ($query) {
+            return $query->latest()->limit(5);
+        })->latest()->paginate(5);
+        return Inertia::render('categories/index', [
+                'categories' => $categories
+            ]);
     }
 
     /**
