@@ -12,7 +12,7 @@
     -->
     <input
       :value="modelValue"
-      :type="type ? type : 'text'"
+      :type="type || 'text'"
       class="peer h-16 pl-4 py-2 border border-gray-400 outline-none text-gray-600 focus:outline-none rounded-lg focus:border-primary-700"
       :placeholder="t(placeholder)"
       :class="icon.length ? 'pr-12' : 'pr-4'"
