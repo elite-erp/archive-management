@@ -41,7 +41,7 @@ function authenticate() {
           <button type="submit" class="btn btn-primary">
             {{ t("login.buttons.submit") }}
           </button>
-          <button type="submit" class="btn btn-secondary">
+          <button type="reset" class="btn btn-secondary">
             {{ t("login.buttons.clear") }}
           </button>
         </div>
