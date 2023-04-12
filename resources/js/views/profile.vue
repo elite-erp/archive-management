@@ -13,13 +13,11 @@ watch(props, () => {
 });
 </script>
 <template>
-  <Teleport to="body">
-    <ProfileEdit
-      :user="user"
-      @hide-modal="modalIsVisible = false"
-      v-if="modalIsVisible"
-    />
-  </Teleport>
+  <ProfileEdit
+    :user="user"
+    @hide-modal="modalIsVisible = false"
+    v-if="modalIsVisible"
+  />
   <div class="flex flex-row justify-between gap-10 w-11/12 mx-auto">
     <div class="w-3/12 flex flex-col items-center gap-4">
       <div class="flex flex-row justify-center items-center">
