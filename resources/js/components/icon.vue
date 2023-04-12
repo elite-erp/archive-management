@@ -4,7 +4,7 @@
     :class="size || 'h-6 w-6'"
     viewBox="0 0 24 24"
   >
-    <path :d="name" class="fill-current" />
+    <path v-if="name.length" :d="name" class="fill-current" />
   </svg>
 </template>
 <script lang="ts" setup>
