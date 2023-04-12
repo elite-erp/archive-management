@@ -60,10 +60,10 @@ pnpm dev
   - [ ] disable (or remove if not associated with data)
 - [ ] Auth
   - [x] login
-  - [ ] logout
-  - [ ] profile
-    - [ ] documents (+ search +pagination)
-    - [ ] change password or name
+  - [x] logout
+  - [x] profile
+    - [?] documents (+ search +pagination)
+    - [x] change password or name
 - [ ] CPanel
   - [ ] chart
   - [ ] register buttons
