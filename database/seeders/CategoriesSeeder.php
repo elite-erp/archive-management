@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
+use App\Models\Category;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-class UsersSeeder extends Seeder
+class CategoriesSeeder extends Seeder
 {
     use WithoutModelEvents;
     /**
@@ -16,7 +16,6 @@ class UsersSeeder extends Seeder
      */
     public function run()
     {
-        User::factory()->create(['name' => 'admin']);
-        User::factory(50)->create();
+        Category::factory(10)->create();
     }
 }
