@@ -28,7 +28,6 @@ class AuthController extends Controller
             }
 
             return to_route('cpanel');
-
         } catch (Exception $error) {
             dump($error);
             return response()->json([
@@ -46,10 +45,12 @@ class AuthController extends Controller
     public function profile()
     {
         return Inertia::render('profile', [
-            'user' => auth()->user()
+            'user' => auth()->user(),
+            'documents' => auth()->user()->documents()->latest()->paginate(10)
         ]);
     }
-    public function logout() {
+    public function logout()
+    {
         auth()->logout();
         return to_route('login');
     }
