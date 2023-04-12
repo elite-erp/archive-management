@@ -26,7 +26,10 @@
         @click.prevent="activeUserMenu = !activeUserMenu"
       >
         <div class="flex flex-row items-center justify-between">
-          <img class="h-[60px] w-[60px] rounded-full" :src="user.photo" />
+          <img
+            class="h-[60px] w-[60px] object-cover rounded-full"
+            :src="user.photo"
+          />
           <span>{{ user.name }}</span>
         </div>
       </div>
