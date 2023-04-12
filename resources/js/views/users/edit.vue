@@ -50,10 +50,14 @@
       </div>
       <div class="flex flex-row justify-between items-center w-full">
         <button type="submit" class="btn btn-primary">
-          {{ t("users.buttons.submit") }}
+          {{ t("buttons.submit") }}
         </button>
-        <button type="submit" class="btn btn-secondary">
-          {{ t("login.buttons.clear") }}
+        <button
+          type="reset"
+          @click.prevent="emits('hide-modal')"
+          class="btn btn-secondary"
+        >
+          {{ t("buttons.clear") }}
         </button>
       </div>
     </form>
