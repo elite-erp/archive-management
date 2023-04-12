@@ -1,16 +1,14 @@
 <script lang="ts" setup>
-import { router } from "@inertiajs/vue3";
-import { reactive } from "vue";
+import { useForm } from "@inertiajs/vue3";
 import { t } from "../utils";
 import { mdiAccountOutline, mdiLockOutline } from "@mdi/js";
-import EInput from "../components/input.vue";
 
-let user = reactive({
+let user = useForm({
   name: "",
   password: "",
 });
 function authenticate() {
-  router.post("/authenticate", user);
+  user.post("/authenticate");
 }
 </script>
 <template>
@@ -18,7 +16,7 @@ function authenticate() {
     class="flex flex-col justify-center items-center h-screen w-screen bg-gray-100 py-10"
   >
     <img src="/assets/icons/logo-text.png" />
-    <ECard class="w-5/12 h-3/4 my-6">
+    <ECard class="w-5/12 min-h-fit my-6">
       <form
         @submit.prevent="authenticate"
         class="flex flex-col items-center justify-start gap-14"
@@ -28,6 +26,7 @@ function authenticate() {
           :icon="mdiAccountOutline"
           label="login.user.label"
           placeholder="login.user.placeholder"
+          :error="user.errors?.name"
           v-model="user.name"
         />
         <EInput
@@ -35,6 +34,7 @@ function authenticate() {
           type="password"
           label="login.password.label"
           placeholder="login.password.placeholder"
+          :error="user.errors?.password"
           v-model="user.password"
         />
         <div class="flex flex-row justify-between items-center w-full">
