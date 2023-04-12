@@ -1,31 +1,22 @@
 <script lang="ts" setup>
-import { mdiPencil, mdiArrowRight, mdiArrowLeft } from "@mdi/js";
-import { ref, Teleport, watch } from "vue";
+import { mdiPencil } from "@mdi/js";
+import { ref, watch } from "vue";
 import CategoryRegister from "./register.vue";
+import EPagination from "../../components/pagination.vue";
 
 const props = defineProps(["categories", "errors"]);
 
 const modalIsVisible = ref(false);
 
 watch(props, () => {
-  if (props.errors.label || props.errors.password || props.errors.role)
-    modalIsVisible.value = true;
+  if (Object.keys(props.errors).length) modalIsVisible.value = true;
 });
-
-function showCategory(id: string | number) {
-  return `/categories/${id}`;
-}
-function filter(links: Record<string, any>[]) {
-  return links.slice(1, links.length - 1);
-}
 </script>
 <template>
-  <Teleport to="body">
-    <CategoryRegister
-      @hide-modal="modalIsVisible = false"
-      v-if="modalIsVisible"
-    />
-  </Teleport>
+  <CategoryRegister
+    @hide-modal="modalIsVisible = false"
+    v-if="modalIsVisible"
+  />
   <header class="flex flex-row justify-between items-center mx-[90px] mt-4">
     <h1 class="text-2xl font-bold text-gray-500">التصنيفات</h1>
     <button
@@ -33,7 +24,7 @@ function filter(links: Record<string, any>[]) {
       class="btn-icon px-2 py-1 my-2 flex flex-row group hover:text-primary-600 justify-between gap-2 items-center"
     >
       <e-icon
-        :label="mdiPencil"
+        :name="mdiPencil"
         class="text-gray-400 group-hover:text-primary-600 h-10 w-10"
       />
       <span class="text-gray-500 group-hover:text-primary-600">تسجيل</span>
@@ -43,9 +34,9 @@ function filter(links: Record<string, any>[]) {
     <div class="mb-10" v-for="category in categories.data" :key="category.id">
       <Link
         :href="`/categories/${category.id}`"
-        class="bg-red-200 text-primary-400 inline-flex gap-4 text-lg flex-row items-center justify-between"
+        class="text-primary-600 inline-flex gap-4 text-lg flex-row items-center justify-between"
       >
-        <span>{{ category.label }}</span>
+        <span class="hover:underline">{{ category.label }}</span>
         <span class="text-sm text-gray-400">
           {{ category.documents_count }}
         </span>
@@ -78,25 +69,5 @@ function filter(links: Record<string, any>[]) {
       </ECard>
     </div>
   </div>
-  <div class="pb-10 flex gap-4 justify-end mx-[90px]">
-    <Link
-      class="h-10 w-10 inline-flex justify-center items-center btn-icon"
-      :href="categories.links[0].url"
-    >
-      <EIcon :label="mdiArrowRight" />
-    </Link>
-    <Link
-      class="h-10 w-10 inline-flex justify-center items-center btn-icon"
-      :href="link.url"
-      v-for="(link, index) in filter(categories.links)"
-      :key="index"
-      v-html="link.label"
-    />
-    <Link
-      class="h-10 w-10 inline-flex justify-center items-center btn-icon"
-      :href="categories.links[categories.links.length - 1].url"
-    >
-      <EIcon :label="mdiArrowLeft" />
-    </Link>
-  </div>
+  <EPagination :list="categories" />
 </template>
