@@ -64,7 +64,6 @@ import { useForm } from "@inertiajs/vue3";
 import { mdiAccountOutline, mdiLockOutline } from "@mdi/js";
 import { t } from "../../utils";
 import EModal from "../../components/modal.vue";
-import EInput from "../../components/input.vue";
 
 let props = defineProps(["user"]);
 let emits = defineEmits(["hide-modal"]);

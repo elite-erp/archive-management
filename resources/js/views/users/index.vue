@@ -1,28 +1,20 @@
 <script lang="ts" setup>
-import { mdiPencil, mdiArrowRight, mdiArrowLeft } from "@mdi/js";
-import { ref, Teleport, watch } from "vue";
+import { mdiPencil } from "@mdi/js";
+import { ref, watch } from "vue";
 import UserRegister from "./register.vue";
+import EPagination from "../../components/pagination.vue";
 
 const props = defineProps(["users", "errors"]);
 
 const modalIsVisible = ref(false);
 
 watch(props, () => {
-  if (props.errors.name || props.errors.password || props.errors.role)
-    modalIsVisible.value = true;
+  if (Object.keys(props.errors).length) modalIsVisible.value = true;
 });
-
-function showUser(id: string | number) {
-  return `/users/${id}`;
-}
-function filter(links: Record<string, any>[]) {
-  return links.slice(1, links.length - 1);
-}
 </script>
+
 <template>
-  <Teleport to="body">
-    <UserRegister @hide-modal="modalIsVisible = false" v-if="modalIsVisible" />
-  </Teleport>
+  <UserRegister @hide-modal="modalIsVisible = false" v-if="modalIsVisible" />
   <header class="flex flex-row justify-between items-center mx-[90px] mt-4">
     <h1 class="text-2xl font-bold text-gray-500">المستخدمين</h1>
     <button
@@ -41,7 +33,7 @@ function filter(links: Record<string, any>[]) {
       v-for="user in users.data"
       class="group rounded-lg ring-2 ring-gray-200 hover:ring-4 hover:ring-primary-500 hover:shadow-2xl w-full flex gap-4 flex-col items-center justify-between pb-4"
       v-if="users.data.length"
-      :href="showUser(user.id)"
+      :href="`/users/${user.id}`"
       :key="user.id"
     >
       <div class="bg-gray-400 rounded-lg w-full h-2/3">
@@ -57,25 +49,5 @@ function filter(links: Record<string, any>[]) {
       </span>
     </Link>
   </ECard>
-  <div class="pb-10 flex gap-4 justify-end mx-[90px]">
-    <Link
-      class="h-10 w-10 inline-flex justify-center items-center btn-icon"
-      :href="users.links[0].url"
-    >
-      <EIcon :name="mdiArrowRight" />
-    </Link>
-    <Link
-      class="h-10 w-10 inline-flex justify-center items-center btn-icon"
-      :href="link.url"
-      v-for="(link, index) in filter(users.links)"
-      :key="index"
-      v-html="link.label"
-    />
-    <Link
-      class="h-10 w-10 inline-flex justify-center items-center btn-icon"
-      :href="users.links[users.links.length - 1].url"
-    >
-      <EIcon :name="mdiArrowLeft" />
-    </Link>
-  </div>
+  <EPagination :list="users" />
 </template>
