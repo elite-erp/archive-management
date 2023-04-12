@@ -46,21 +46,25 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        return new CategoryResource($category);
+        $documents = $category->documents()->latest()->paginate(10);
+
+        return Inertia::render('categories/show', compact('category', 'documents'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(CategoryRequest $request, Category $category)
+    public function update(Category $category)
     {
-        $category->update($request->all());
+        $data = request()->validate([
+            'label' => 'required|min:3|unique:categories,label,' . $category->id
+        ]);
+        $category->update($data);
 
-        return new CategoryResource($category);
+        return to_route('categories.show', $category->id);
     }
 
     /**
