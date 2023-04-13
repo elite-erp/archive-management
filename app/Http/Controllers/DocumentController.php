@@ -160,4 +160,12 @@ class DocumentController extends Controller
             'message' => 'Document Deleted Successfully'
         ];
     }
+
+    public function restore(Document $document){
+        $document->withTrashed()->restore() ;
+        return [
+            'status' => 'OK',
+            'message' => 'Document Restored Successfully'
+        ];
+    }
 }
