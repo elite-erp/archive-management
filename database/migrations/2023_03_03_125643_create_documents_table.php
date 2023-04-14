@@ -17,19 +17,24 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->text('description');
-            $table->unsignedInteger('catgory_id');
-            $table->unsignedInteger('user_id');
+            $table->unsignedInteger('category_id');
+            $table->unsignedInteger('created_by');
+            $table->unsignedInteger('updated_by');
             $table->softDeletes();
             $table->timestamps();
-            $table->foreign('catgory_id')
+            $table->foreign('category_id')
                     ->references('id')
                     ->on('categories')
                     ->onDelete('cascade');
-            $table->foreign('user_id')
+            $table->foreign('created_by')
                     ->references('id')
                     ->on('users')
-                    ->onDelete('cascade');        
-        });
+                    ->onDelete('cascade');
+            $table->foreign('updated_by')
+                    ->references('id')
+                    ->on('users')
+                    ->onDelete('cascade');
+         });
     }
 
     /**

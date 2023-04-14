@@ -7,6 +7,7 @@
       <input
         type="search"
         class="border p-3 w-[390px] outline-none border-gray-300 rounded-lg bg-white h-[54px]"
+        v-model="search"
         :placeholder="t('search')"
       />
       <div class="flex flex-row shadow-md rounded-xl items-center h-[54px]">
@@ -62,10 +63,15 @@
 <script lang="ts" setup>
 import { t } from "./utils.js";
 import { Link, usePage } from "@inertiajs/vue3";
-import { computed, ref } from "vue";
+import { computed, onMounted, ref } from "vue";
+import { useSearch } from "./search";
 
 const user = computed(() => usePage().props?.auth?.user);
 const activeUserMenu = ref(false);
+const search = useSearch();
+onMounted(() => {
+  search.value = usePage().props?.search as string;
+});
 </script>
 
 <style lang="postcss" scoped>

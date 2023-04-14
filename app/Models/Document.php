@@ -15,10 +15,15 @@ class Document extends Model
     protected $fillable = ['title', 'description', 'category_id', 'created_by', 'updated_by'];
 
     protected $dates = ['deleted_at'];
+    protected $appends = ['photo'];
 
     public function attachments()
     {
         return $this->hasMany(Attachment::class);
+    }
+
+    public function getPhotoAttribute() {
+        return $this->attachments()->select('path')->first()->path;
     }
 
     public function category()

@@ -19,18 +19,9 @@ class DocumentController extends Controller
      */
     public function index()
     {
-        $documents = Document::with('category')->with('attachments', function ($query) {
-            $query->first();
-        })->latest()->paginate(10)->through(
-            fn ($document) => [
-                'id' => $document->id,
-                'title' => $document->title,
-                'category' => $document->category,
-                'attachment' => Attachment::where('document_id', $document->id)->first()->only('path')
-            ]
-        );
-
-        return Inertia::render('documents/index', compact('documents'));
+        $search = request('search');
+        $documents = fetchDocuments($search);
+        return Inertia::render('documents/index', compact('documents', 'search'));
     }
     /**
      * create

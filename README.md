@@ -108,10 +108,21 @@ pnpm dev
   - [?] delete (or archive)
 - [ ] attachements
   - [ ] create
-  - [ ] find
-  - [ ] find one
-  - [ ] update
   - [ ] delete (or archive)
 - [ ] cpanel
   - [ ] chart
   - [ ] counters
+
+
+## Sat Apr 15 12:34:15 AM CAT 2023
+- [x] refactor document fetch with photo
+- [x] search documents
+- [x] soft deletes
+- [ ] flash messages
+- [ ] cpanel
+  - [ ] chart
+  - [ ] counters
+  - [ ] buttons
+- [ ] documents
+  - [ ] add attachment
+  - [ ] remove attachment

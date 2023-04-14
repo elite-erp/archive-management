@@ -8,6 +8,8 @@ use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 
+require_once app_path("Services/FetchDocuments.php");
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes

@@ -1,6 +1,10 @@
 <script lang="ts" setup>
 import { mdiPencil } from "@mdi/js";
 import EPagination from "../../components/pagination.vue";
+import { useSearch } from "../../search";
+import EDocumentsGrid from "../../components/documents-grid.vue";
+
+useSearch("/documents");
 
 defineProps(["documents"]);
 </script>
@@ -19,31 +23,8 @@ defineProps(["documents"]);
       <span class="text-gray-500 group-hover:text-primary-600">تسجيل</span>
     </Link>
   </header>
-  <ECard class="mx-[90px] mb-10 grid-cols-4 grid gap-16">
-    <Link
-      v-for="document in documents.data"
-      class="h-80 group rounded-lg relative ring-2 ring-gray-200 hover:ring-4 hover:ring-primary-500 hover:shadow-2xl w-full flex gap-4 flex-col items-center justify-between pb-4"
-      v-if="documents.data.length"
-      :href="`/documents/${document.id}`"
-      :key="document.id"
-    >
-      <img
-        :src="document.attachment.path"
-        class="absolute w-full object-cover h-80 rounded-lg"
-      />
-      <div
-        class="bg-gray-500/50 absolute bottom-0 flex flex-col justify-around items-center rounded-lg w-full h-1/3"
-      >
-        <h1
-          class="text-lg font-bold group-hover:text-primary-800 text-center text-gray-800 px-2"
-        >
-          {{ document.title }}
-        </h1>
-        <span class="rounded-full bg-white py-1 px-3 mx-2 text-center">
-          {{ document.category.label }}
-        </span>
-      </div>
-    </Link>
+  <ECard class="mx-[90px] mb-10">
+    <EDocumentsGrid :documents="documents" cols="4" />
   </ECard>
   <EPagination :list="documents" />
 </template>
