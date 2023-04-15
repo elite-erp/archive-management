@@ -60,10 +60,12 @@ watch(props, () => {
         </button>
       </div>
     </div>
-    <ECard class="w-9/12 mb-10">
+    <div class="w-full">
       <h1 class="font-bold text-xl text-gray-500 mb-4">المسودات</h1>
-      <EDocumentsGrid :documents="documents" />
-    </ECard>
+      <ECard class="w-full mb-10">
+        <EDocumentsGrid :documents="documents" />
+      </ECard>
+    </div>
   </div>
   <div
     v-if="documents.data.length"

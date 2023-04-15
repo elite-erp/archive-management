@@ -33,9 +33,11 @@ class AuthController extends Controller
 
     public function profile()
     {
+        $search = request('search', '');
         return Inertia::render('profile', [
             'user' => auth()->user(),
-            'documents' => fetchDocuments(request('search'), auth()->id(), 'created_by')
+            'search' => $search,
+            'documents' => fetchDocuments($search, auth()->id(), 'created_by')
         ]);
     }
     public function logout()

@@ -24,7 +24,7 @@ defineProps(["documents"]);
     </Link>
   </header>
   <ECard class="mx-[90px] mb-10">
-    <EDocumentsGrid :documents="documents" cols="4" />
+    <EDocumentsGrid :documents="documents" :cols="4" />
   </ECard>
   <EPagination :list="documents" />
 </template>

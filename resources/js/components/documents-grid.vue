@@ -1,9 +1,12 @@
 <template>
-  <div class="w-full grid grid-cols-3 gap-10" :class="`grid-cols-${cols || 3}`">
+  <div
+    v-if="documents.data.length"
+    class="w-full grid gap-10"
+    :class="columns(cols || 3)"
+  >
     <Link
       v-for="document in documents.data"
       class="h-80 group rounded-lg relative ring-2 ring-gray-200 hover:ring-4 hover:ring-primary-500 hover:shadow-2xl w-full flex gap-4 flex-col items-center justify-between pb-4"
-      v-if="documents.data.length"
       :href="`/documents/${document.id}`"
       :key="document.id"
     >
@@ -25,7 +28,25 @@
       </div>
     </Link>
   </div>
+  <div
+    v-else
+    class="w-full h-full text-yellow-400 font-bold text-2xl flex justify-center items-center"
+  >
+    لا يوجد نتائج
+  </div>
 </template>
 <script lang="ts" setup>
 defineProps(["documents", "cols"]);
+function columns(cols: number) {
+  switch (cols) {
+    case 3:
+      return "grid-cols-3";
+    case 4:
+      return "grid-cols-4";
+    case 5:
+      return "grid-cols-5";
+    case 6:
+      return "grid-cols-6";
+  }
+}
 </script>

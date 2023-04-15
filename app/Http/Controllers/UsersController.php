@@ -43,7 +43,7 @@ class UsersController extends Controller
 
     public function show(User $user)
     {
-        $search = request('search');
+        $search = request('search', '');
         $documents = fetchDocuments($search, $user->id, 'created_by');
         return Inertia::render('users/show', compact('user', 'documents','search'));
     }
