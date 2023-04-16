@@ -23,7 +23,7 @@ class Document extends Model
     }
 
     public function getPhotoAttribute() {
-        $attachment = $this->attachments()->select('path')->first();
+        $attachment = $this->attachments()->first();
         if ($attachment) {
             return $attachment->path;
         }

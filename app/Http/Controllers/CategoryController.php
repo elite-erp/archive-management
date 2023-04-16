@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoryRequest;
-use App\Http\Resources\CategoryResource;
 use App\Models\Category;
 use Inertia\Inertia;
 
@@ -17,9 +16,12 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::select(['label', 'id'])->withCount('documents')->with('documents', function ($query) {
-            $query->with('category','attachments')->latest()->limit(5);
-        })->latest()->paginate(5);
+        $categories = Category::query()->when(request('search'), function ($query, $search) {
+            $query->where('label', 'like', "%{$search}%");
+        })->select(['label', 'id'])->withCount('documents')->with('documents', function ($query) {
+            $query->with('category')->latest()->limit(5);
+        })->latest()->paginate(5)->withQueryString();
+
         return Inertia::render('categories/index', compact(
             'categories'
         ));
@@ -46,7 +48,7 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        $documents = $category->documents()->with('category','attachments')->latest()->paginate(10);
+        $documents = $category->documents()->with('category', 'attachments')->latest()->paginate(10);
 
         return Inertia::render('categories/show', compact('category', 'documents'));
     }

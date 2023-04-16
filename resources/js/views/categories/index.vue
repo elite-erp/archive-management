@@ -3,10 +3,13 @@ import { mdiPencil } from "@mdi/js";
 import { ref, watch } from "vue";
 import CategoryRegister from "./register.vue";
 import EPagination from "../../components/pagination.vue";
+import { useSearch } from "../../search";
 
 const props = defineProps(["categories", "errors"]);
 
 const modalIsVisible = ref(false);
+
+useSearch("/categories");
 
 watch(props, () => {
   if (Object.keys(props.errors).length) modalIsVisible.value = true;
@@ -53,7 +56,7 @@ watch(props, () => {
           :key="document.id"
         >
           <img
-            :src="document.attachments[0]?.path"
+            :src="document.photo"
             class="absolute w-full object-cover h-80 rounded-lg"
           />
           <div
