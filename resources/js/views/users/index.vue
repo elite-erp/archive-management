@@ -39,7 +39,7 @@ watch(props, () => {
       :href="`/users/${user.id}`"
       :key="user.id"
     >
-      <div class="bg-gray-400 rounded-lg w-full h-2/3">
+      <div class="bg-gray-400 rounded-lg w-full h-50">
         <img :src="user.photo" class="w-full object-cover h-full rounded-lg" />
       </div>
       <h1

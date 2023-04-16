@@ -1,12 +1,5 @@
 <script lang="ts" setup>
-import {
-  mdiUploadOutline,
-  mdiPencil,
-  mdiArrowRight,
-  mdiArrowLeft,
-  mdiPrinter,
-  mdiTrashCan,
-} from "@mdi/js";
+import { mdiUploadOutline, mdiPencil, mdiPrinter, mdiTrashCan } from "@mdi/js";
 import DocumentEdit from "./edit.vue";
 import EModal from "../../components/modal.vue";
 import { ref, watch } from "vue";
