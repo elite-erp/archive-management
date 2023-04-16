@@ -30,7 +30,7 @@ class AttachmentController extends Controller
         }
 
 
-        return to_route('documents.show', request('document_id'));
+        return to_route('documents.show', request('document_id'))->with('message', 'تم الحفظ بنجاح');
     }
 
     /**
@@ -44,6 +44,6 @@ class AttachmentController extends Controller
         $attachment = Attachment::find($id);
         $attachment->delete();
 
-        return to_route('documents.show', $attachment->document_id);
+        return to_route('documents.show', $attachment->document_id)->with('message', 'تم الحذف بنجاح');
     }
 }
