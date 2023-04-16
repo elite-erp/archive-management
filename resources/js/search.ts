@@ -10,11 +10,11 @@ export function useSearch(url?: string) {
     if (url != localStorage.getItem('url')) {
       search.value = ''
     }
-     localStorage.setItem('url', url)
+    localStorage.setItem('url', url)
     watch(search, () => {
       router.visit(`${url}?search=${search.value}`);
     });
- }
+  }
 
   return search
 }

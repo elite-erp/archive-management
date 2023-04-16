@@ -16,7 +16,6 @@ class UsersController extends Controller
             $query->where('name', 'like', "%{$search}%")
                 ->orWhere('role', 'like', "%{$search}%");
         })->select(['name', 'photo', 'role', 'id'])->latest()->paginate(10)->withQueryString();
-
         return Inertia::render('users/index', compact('users', 'search'));
     }
 
@@ -41,7 +40,7 @@ class UsersController extends Controller
 
         User::create($data);
 
-        return to_route('users.index');
+        return to_route('users.index')->with('message', 'تم الحفظ بنجاح');
     }
 
 
@@ -64,7 +63,7 @@ class UsersController extends Controller
             'photo' => $photo
         ]);
 
-        return to_route('users.show', $user->id);
+        return to_route('users.show', $user->id)->with('message', 'تم التحديث بنجاح');
     }
 
     public function update(User $user)

@@ -40,27 +40,29 @@
         </div>
       </div>
     </nav>
-    <Teleport to="body">
-      <div
-        v-if="activeUserMenu"
-        class="fixed top-0 left-0 w-screen h-screen"
-        @click="activeUserMenu = false"
-      >
-        <div
-          class="absolute top-20 w-36 left-10 flex flex-col items-center text-primary-600 justify-center rounded-lg bg-white text-center divide-y divide-gray-200 z-20 shadow-md"
-        >
-          <Link href="/profile" v-text="t('nav.profile')" class="py-4 w-full" />
-          <Link
-            href="/logout"
-            method="post"
-            v-text="t('nav.logout')"
-            class="py-4 w-full"
-          />
-        </div>
-      </div>
-    </Teleport>
     <slot />
   </div>
+  <FlashMessage />
+
+  <Teleport to="body">
+    <div
+      v-if="activeUserMenu"
+      class="fixed top-0 left-0 w-screen h-screen"
+      @click="activeUserMenu = false"
+    >
+      <div
+        class="absolute top-20 w-36 left-10 flex flex-col items-center text-primary-600 justify-center rounded-lg bg-white text-center divide-y divide-gray-200 z-20 shadow-md"
+      >
+        <Link href="/profile" v-text="t('nav.profile')" class="py-4 w-full" />
+        <Link
+          href="/logout"
+          method="post"
+          v-text="t('nav.logout')"
+          class="py-4 w-full"
+        />
+      </div>
+    </div>
+  </Teleport>
 </template>
 
 <script lang="ts" setup>
@@ -68,6 +70,7 @@ import { t } from "./utils";
 import { Link, usePage } from "@inertiajs/vue3";
 import { computed, onMounted, ref } from "vue";
 import { useSearch } from "./search";
+import FlashMessage from "./components/flash-message.vue";
 
 const user = computed(() => usePage<Record<string, any>>().props.auth?.user);
 const activeUserMenu = ref(false);

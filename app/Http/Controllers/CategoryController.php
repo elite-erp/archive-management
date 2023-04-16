@@ -16,14 +16,16 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::query()->when(request('search'), function ($query, $search) {
+       $search = request('search', '');
+       $categories = Category::query()->when($search, function ($query, $search) {
             $query->where('label', 'like', "%{$search}%");
         })->select(['label', 'id'])->withCount('documents')->with('documents', function ($query) {
             $query->with('category')->latest()->limit(5);
         })->latest()->paginate(5)->withQueryString();
 
         return Inertia::render('categories/index', compact(
-            'categories'
+            'categories',
+            'search',
         ));
     }
 
@@ -37,7 +39,7 @@ class CategoryController extends Controller
     {
         Category::create($request->only('label'));
 
-        return to_route('categories.index');
+        return to_route('categories.index')->with('message', 'تم الحفظ بنجاح');
     }
 
     /**
@@ -66,7 +68,7 @@ class CategoryController extends Controller
         ]);
         $category->update($data);
 
-        return to_route('categories.show', $category->id);
+        return to_route('categories.show', $category->id)->with('message', 'تم التحديث بنجاح');
     }
 
     /**

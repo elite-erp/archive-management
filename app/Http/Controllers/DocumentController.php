@@ -66,7 +66,7 @@ class DocumentController extends Controller
         }
 
 
-        return to_route('documents.show', $document->id);
+        return to_route('documents.show', $document->id)->with('message', 'تم الحفظ بنجاح');
     }
 
     /**
@@ -116,7 +116,7 @@ class DocumentController extends Controller
         $document->updated_by = auth()->id();
         $document->save();
 
-        return to_route('documents.show', $document->id);
+        return to_route('documents.show', $document->id)->with('message', 'تم التحديث بنجاح');
    }
 
     /**
