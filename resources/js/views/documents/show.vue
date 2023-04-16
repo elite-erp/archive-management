@@ -75,12 +75,15 @@ watch(attachments, () => {
           size="h-8 w-8"
         />
       </button>
-      <h1 class="flex flex-col justify-start">
+      <h2 class="flex flex-col justify-start">
+        <span class="font-bold text-xl ml-4 text-gray-400"> مسودة</span>
+      </h2>
+      <h2 class="flex flex-col justify-start">
         <span class="ml-4 text-gray-400"> العنوان </span>
         <span class="font-bold text-lg text-gray-600">
           {{ document.title }}
         </span>
-      </h1>
+      </h2>
       <h2 class="flex-col flex gap-2">
         <span class="ml-4 text-gray-400"> التصنيف </span>
         <Link
@@ -130,15 +133,23 @@ watch(attachments, () => {
       <button
         @click.prevent="fileSelector('.document-photo-input')"
         type="button"
-        class="btn btn-icon p-3 w-14 h-14"
+        class="btn btn-icon p-3 w-14 h-14 group"
       >
-        <EIcon :name="mdiUploadOutline" size="h-8 w-8" />
+        <EIcon
+          :name="mdiUploadOutline"
+          class="text-gray-700 group-hover:text-primary-500"
+          size="h-8 w-8"
+        />
       </button>
       <Link
         :href="`/documents/${document.id}/print`"
-        class="btn inline-block btn-icon p-3 w-14 h-14"
+        class="btn inline-block btn-icon p-3 w-14 h-14 group"
       >
-        <EIcon :name="mdiPrinter" size="h-8 w-8" />
+        <EIcon
+          class="text-gray-700 group-hover:text-primary-500"
+          :name="mdiPrinter"
+          size="h-8 w-8"
+        />
       </Link>
     </div>
   </div>
