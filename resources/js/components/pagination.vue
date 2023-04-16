@@ -27,6 +27,7 @@ import { computed } from "vue";
 import { filterLinks } from "../utils";
 interface Props {
   list: List;
+  [key: string]: any;
 }
 interface List {
   links: Link[];
@@ -36,7 +37,7 @@ interface Link {
   label: string;
 }
 
-const props = defineProps(["list"]) as Props;
+const props = defineProps<Props>();
 
 const filteredLinks = computed(() => filterLinks<Link>(props.list.links));
 </script>

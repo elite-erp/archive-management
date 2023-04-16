@@ -3,10 +3,13 @@ import { mdiPencil } from "@mdi/js";
 import { ref, watch } from "vue";
 import UserRegister from "./register.vue";
 import EPagination from "../../components/pagination.vue";
+import { useSearch } from "../../search";
 
 const props = defineProps(["users", "errors"]);
 
 const modalIsVisible = ref(false);
+
+useSearch("/users");
 
 watch(props, () => {
   if (Object.keys(props.errors).length) modalIsVisible.value = true;

@@ -11,9 +11,13 @@ class UsersController extends Controller
 
     public function index()
     {
-        $users = User::select(['name','photo', 'role', 'id'])->latest()->paginate(10);
+        $search = request('search', '');
+        $users = User::query()->when($search, function ($query, $search) {
+            $query->where('name', 'like', "%{$search}%")
+                ->orWhere('role', 'like', "%{$search}%");
+        })->select(['name', 'photo', 'role', 'id'])->latest()->paginate(10)->withQueryString();
 
-        return Inertia::render('users/index', compact('users'));
+        return Inertia::render('users/index', compact('users', 'search'));
     }
 
 
@@ -45,7 +49,7 @@ class UsersController extends Controller
     {
         $search = request('search', '');
         $documents = fetchDocuments($search, $user->id, 'created_by');
-        return Inertia::render('users/show', compact('user', 'documents','search'));
+        return Inertia::render('users/show', compact('user', 'documents', 'search'));
     }
 
     public function uploadPhoto($id)
