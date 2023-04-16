@@ -7,13 +7,13 @@ import EIcon from "./components/icon.vue";
 import EInput from "./components/input.vue";
 
 createInertiaApp({
-  resolve: (name) => {
+  resolve(name: string) {
     const pages = import.meta.glob("./views/**/*.vue", { eager: true });
-    let page = pages[`./views/${name}.vue`];
+    let page: any = pages[`./views/${name}.vue`];
     if (name != "login") page.default.layout = page.default.layout || Layout;
     return page;
   },
-  setup({ el, App, props, plugin }) {
+  setup({ el, App, props, plugin }): any {
     return createApp({ render: () => h(App, props) })
       .use(plugin)
       .component("ECard", ECard)

@@ -66,7 +66,7 @@ import { Link, usePage } from "@inertiajs/vue3";
 import { computed, onMounted, ref } from "vue";
 import { useSearch } from "./search";
 
-const user = computed(() => usePage().props?.auth?.user);
+const user = computed(() => usePage<Record<string, any>>().props.auth?.user);
 const activeUserMenu = ref(false);
 const search = useSearch();
 onMounted(() => {
