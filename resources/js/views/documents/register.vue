@@ -109,7 +109,7 @@ const document = useForm({
   title: "",
   description: "",
   category_id: null,
-  attachments: [],
+  attachments: [] as any[],
 });
 
 function setAttachments(e: any) {
@@ -129,7 +129,7 @@ function setAttachments(e: any) {
     }
   };
 }
-const attachments = ref([]);
+const attachments = ref<any[]>([]);
 function storeUser() {
   document.attachments = attachments.value.map((attach) => {
     return attach.file;

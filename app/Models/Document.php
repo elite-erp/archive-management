@@ -23,7 +23,11 @@ class Document extends Model
     }
 
     public function getPhotoAttribute() {
-        return $this->attachments()->select('path')->first()->path;
+        $attachment = $this->attachments()->select('path')->first();
+        if ($attachment) {
+            return $attachment->path;
+        }
+        return '/imgs/doc.png';
     }
 
     public function category()

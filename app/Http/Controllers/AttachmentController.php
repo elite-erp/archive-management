@@ -3,52 +3,34 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Models\Attachment;
 
 class AttachmentController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store()
     {
-        //
-    }
+        request()->validate([
+            'document_id' => 'required|numeric|exists:documents,id',
+            "attachments.*" => "required|file|mimes:jpeg,png,jpg|max:20000"
+        ]);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
+        foreach (request()->file('attachments') as $attachment) {
+            $name = $attachment->getClientOriginalName();
+            $path = '/' . $attachment->storeAs('uploads/attachments', $name);
+            Attachment::create([
+                'path' => $path,
+                'document_id' => request('document_id'),
+                'created_by' => auth()->id()
+            ]);
+        }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
+
+        return to_route('documents.show', request('document_id'));
     }
 
     /**
@@ -59,6 +41,9 @@ class AttachmentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $attachment = Attachment::find($id);
+        $attachment->delete();
+
+        return to_route('documents.show', $attachment->document_id);
     }
 }
