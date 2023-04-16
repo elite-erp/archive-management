@@ -81,7 +81,7 @@ pnpm dev
     - [-] textarea
 - [x] button
 - [x] modal
-- [-] flash message
+- [x] flash message
 - [x] pagination
 - [x] icon
 - [x] select
@@ -117,7 +117,7 @@ pnpm dev
 - [x] refactor document fetch with photo
 - [x] search documents
 - [x] soft deletes
-- [ ] flash messages
+- [x] flash messages
 - [ ] cpanel
   - [ ] chart
   - [ ] counters
