@@ -28,12 +28,15 @@
         class="flex flex-col justify-start w-[160px]"
         @click.prevent="activeUserMenu = !activeUserMenu"
       >
-        <div class="flex flex-row items-center justify-between">
+        <div class="cursor-pointer flex flex-row items-center justify-around">
           <img
             class="h-[60px] w-[60px] object-cover rounded-full"
             :src="user.photo"
           />
-          <span>{{ user.name }}</span>
+          <span
+            class="bg-white px-4 py-2 text-gray-600 hover:text-primary-400 rounded-full shadow"
+            >{{ user.name }}</span
+          >
         </div>
       </div>
     </nav>

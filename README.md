@@ -27,10 +27,9 @@ pnpm dev
 
 ## Features
 - [ ] Users
-  - [?] list (+search +pagination)
-      - search is not finished
-  - [?] details
-    - [?] documents (+search)
+  - [x] list (+search +pagination)
+  - [x] details
+    - [x] documents (+search)
   - [x] create
       - [x] support validation errors
   - [x] edit
@@ -48,21 +47,21 @@ pnpm dev
   - [x] edit
   - [ ] disable (or remove if not associated with data)
 - [ ] Documents
-  - [?] list (+search +pagination)
+  - [x] list (+search +pagination)
     - [ ] aside view
     - [x] grid view
-  - [?] details
+  - [x] details
     - [x] print
-    - [ ] add attachments
-    - [ ] remove attachements
+    - [x] add attachments
+    - [x] remove attachements
   - [x] create
   - [x] edit
   - [ ] disable (or remove if not associated with data)
-- [?] Auth
+- [x] Auth
   - [x] login
   - [x] logout
-  - [?] profile
-    - [?] documents (+search +pagination)
+  - [x] profile
+    - [x] documents (+search +pagination)
     - [x] change password or name
 - [ ] CPanel
   - [ ] chart
@@ -73,13 +72,13 @@ pnpm dev
 
 
 ## components
-- [?] input
+- [x] input
     - [x] error
     - [x] type
     - [x] icons
     - [x] placeholder
-    - [ ] radio
-    - [ ] textarea
+    - [-] radio
+    - [-] textarea
 - [x] button
 - [x] modal
 - [-] flash message
@@ -106,9 +105,9 @@ pnpm dev
   - [x] find one
   - [x] update
   - [?] delete (or archive)
-- [ ] attachements
-  - [ ] create
-  - [ ] delete (or archive)
+- [x] attachements
+  - [x] create
+  - [x] delete (or archive)
 - [ ] cpanel
   - [ ] chart
   - [ ] counters
