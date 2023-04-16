@@ -61,7 +61,7 @@
 </template>
 
 <script lang="ts" setup>
-import { t } from "./utils.js";
+import { t } from "./utils";
 import { Link, usePage } from "@inertiajs/vue3";
 import { computed, onMounted, ref } from "vue";
 import { useSearch } from "./search";

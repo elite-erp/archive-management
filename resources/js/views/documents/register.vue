@@ -121,7 +121,7 @@ function setAttachments(e: any) {
 
         reader.onload = (readerEvent) => {
           attachments.value.push({
-            url: readerEvent.target.result,
+            url: readerEvent.target?.result,
             file: file,
           });
         };

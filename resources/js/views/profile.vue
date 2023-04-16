@@ -5,6 +5,7 @@ import { ref, watch } from "vue";
 import { uploadPhoto, filterLinks, fileSelector } from "../utils";
 import { useSearch } from "../search";
 import EDocumentsGrid from "../components/documents-grid.vue";
+import EPagination from "../components/pagination.vue";
 
 const props = defineProps(["user", "documents", "errors"]);
 const modalIsVisible = ref(false);
@@ -67,28 +68,5 @@ watch(props, () => {
       </ECard>
     </div>
   </div>
-  <div
-    v-if="documents.data.length"
-    class="pb-10 flex gap-4 justify-end mx-[90px]"
-  >
-    <Link
-      class="h-10 w-10 inline-flex justify-center items-center btn-icon"
-      :href="documents.links[0].url"
-    >
-      <EIcon :name="mdiArrowRight" />
-    </Link>
-    <Link
-      class="h-10 w-10 inline-flex justify-center items-center btn-icon"
-      :href="link.url"
-      v-for="(link, index) in filterLinks(documents.links)"
-      :key="index"
-      v-html="link.label"
-    />
-    <Link
-      class="h-10 w-10 inline-flex justify-center items-center btn-icon"
-      :href="documents.links[documents.links.length - 1].url"
-    >
-      <EIcon :name="mdiArrowLeft" />
-    </Link>
-  </div>
+  <EPagination :list="documents" />
 </template>

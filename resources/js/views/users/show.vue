@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { mdiPencil, mdiArrowRight, mdiArrowLeft } from "@mdi/js";
 import UserEdit from "./edit.vue";
-import { ref, watch } from "vue";
+import { computed, ref, watch } from "vue";
 import { uploadPhoto, filterLinks, fileSelector } from "../../utils";
 import { useSearch } from "../../search";
 import EDocumentsGrid from "../../components/documents-grid.vue";
@@ -12,9 +12,11 @@ const modalIsVisible = ref(false);
 useSearch(`/users/${props.user.id}`);
 
 watch(props, () => {
-  if (props.errors.name || props.errors.password || props.errors.role)
-    modalIsVisible.value = true;
+  if (Object.keys(props.errors).length) modalIsVisible.value = true;
 });
+const filteredLinks = computed(() =>
+  filterLinks<{ url: string; label: string }>(props.documents.links)
+);
 </script>
 <template>
   <UserEdit
@@ -80,7 +82,7 @@ watch(props, () => {
     <Link
       class="h-10 w-10 inline-flex justify-center items-center btn-icon"
       :href="link.url"
-      v-for="(link, index) in filterLinks(documents.links)"
+      v-for="(link, index) in filteredLinks"
       :key="index"
       v-html="link.label"
     />

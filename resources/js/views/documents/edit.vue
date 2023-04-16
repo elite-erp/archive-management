@@ -1,53 +1,35 @@
 <template>
   <EModal @close="emits('hide-modal')">
-    <h1 class="font-bold text-2xl text-gray-500 text-center">تعديل مستخدم</h1>
+    <h1 class="font-bold text-2xl text-gray-500 text-center">تعديل مسودة</h1>
     <form
-      @submit.prevent="storeUser"
+      @submit.prevent="storeDocument"
       class="mt-8 flex flex-col justify-center gap-[22px] items-center"
     >
       <EInput
         :icon="mdiAccountOutline"
-        label="login.document.label"
-        placeholder="login.document.placeholder"
-        v-model="document.name"
-        :error="document.errors?.name"
+        label="documents.title.label"
+        placeholder="documents.title.placeholder"
+        v-model="document.title"
+        :error="document.errors?.title"
       />
       <EInput
         :icon="mdiLockOutline"
-        type="password"
-        label="login.password.label"
-        placeholder="login.password.placeholder"
-        v-model="document.password"
-        :error="document.errors?.password"
+        type="textarea"
+        label="documents.description.label"
+        placeholder="documents.description.placeholder"
+        :error="document.errors?.description"
+        v-model="document.description"
       />
-      <div class="flex flex-col justify-start w-full">
-        <span class="mb-2 text-gray-600">الوظيفة</span>
-        <div>
-          <label class="mx-4">
-            <input
-              type="radio"
-              v-model="document.role"
-              value="مدير"
-              :checked="document.role == 'مدير'"
-            />
-            <span class="mx-2 text-gray-600">مدير</span>
-          </label>
-          <label>
-            <input
-              type="radio"
-              v-model="document.role"
-              value="موظف"
-              :checked="document.role == 'موظف'"
-            />
-            <span class="mx-2 text-gray-600">موظف</span>
-          </label>
-        </div>
-        <span
-          v-if="document.errors?.role"
-          v-text="document.errors?.role"
-          class="error-message"
-        />
-      </div>
+      <ESelect
+        :icon="mdiLockOutline"
+        :list="categories"
+        option-text="label"
+        option-value="id"
+        label="documents.category.label"
+        placeholder="documents.category.placeholder"
+        :error="document.errors?.category_id"
+        v-model="document.category_id"
+      />
       <div class="flex flex-row justify-between items-center w-full">
         <button type="submit" class="btn btn-primary">
           {{ t("buttons.submit") }}
@@ -68,17 +50,18 @@ import { useForm } from "@inertiajs/vue3";
 import { mdiAccountOutline, mdiLockOutline } from "@mdi/js";
 import { t } from "../../utils";
 import EModal from "../../components/modal.vue";
+import ESelect from "../../components/select.vue";
 
-let props = defineProps(["document"]);
+let props = defineProps(["document", "categories"]);
 let emits = defineEmits(["hide-modal"]);
 
 const document = useForm({
-  name: props.document.name,
-  role: props.document.role,
-  password: props.document.password,
+  title: props.document.title,
+  description: props.document.description,
+  category_id: props.document.category_id,
 });
 
-function storeUser() {
+function storeDocument() {
   document.patch(`/documents/${props.document.id}`, {
     onSuccess: () => {
       emits("hide-modal");

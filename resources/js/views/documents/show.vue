@@ -7,13 +7,13 @@ import {
   mdiPrinter,
   mdiTrashCan,
 } from "@mdi/js";
-import UserEdit from "./edit.vue";
+import DocumentEdit from "./edit.vue";
 import EModal from "../../components/modal.vue";
 import { ref, watch } from "vue";
-import { filterLinks, fileSelector } from "../../utils";
+import { fileSelector } from "../../utils";
 import { router } from "@inertiajs/vue3";
 
-const props = defineProps(["document", "documents", "errors"]);
+const props = defineProps(["document", "documents", "errors", "categories"]);
 const modalIsVisible = ref(false);
 
 watch(props, () => {
@@ -60,8 +60,28 @@ watch(attachments, () => {
 });
 </script>
 <template>
+  <DocumentEdit
+    @hide-modal="modalIsVisible = false"
+    v-if="modalIsVisible"
+    :categories="categories"
+    :document="document"
+  />
   <div class="flex flex-row items-start justify-between gap-10 w-[90%] mx-auto">
-    <ECard class="flex flex-col items-start gap-10 justify-between w-4/12">
+    <ECard
+      class="relative flex flex-col items-start gap-10 justify-between w-4/12"
+    >
+      <button
+        @click="modalIsVisible = true"
+        type="button"
+        class="btn btn-icon p-3 w-14 group h-14 absolute top-10 left-4"
+      >
+        <EIcon
+          :name="mdiPencil"
+          title="تعديل"
+          class="text-gray-400 group-hover:text-primary-400"
+          size="h-8 w-8"
+        />
+      </button>
       <h1 class="flex flex-col justify-start">
         <span class="ml-4 text-gray-400"> العنوان </span>
         <span class="font-bold text-lg text-gray-600">

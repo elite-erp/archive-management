@@ -80,7 +80,9 @@ class DocumentController extends Controller
         $document->load('attachments');
         $document->load('category');
 
-        return Inertia::render('documents/show', compact('document'));
+        $categories = Category::select('label', 'id')->get();
+
+        return Inertia::render('documents/show', compact('document', 'categories'));
     }
 
     /**
@@ -99,43 +101,23 @@ class DocumentController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\Document $document
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Document $document)
+    public function update(Document $document)
     {
-        $validator = Validator::make($request->all(), [
+        $data = request()->validate([
             'title' => 'required|max:191',
             'description' => 'required',
-            'catgory' => 'required'
+            'category_id' => 'required|numeric|exists:categories,id'
         ]);
-        if ($validator->fails()) {
-            return response()->json([
-                'status' => 422,
-                'error' => $validator->messages()
-            ], 422);
-        } else {
 
-            if ($document) {
-                $document->update([
-                    'title' => $request->title,
-                    'description' => $request->description,
-                    'catgory' => $request->catgory
-                ]);
+        $document->fill($data);
+        $document->updated_by = auth()->id();
+        $document->save();
 
-                return response()->json([
-                    'status' => 200,
-                    'message' => 'Document Updated Successfully'
-                ], 200);
-            } else {
-                return response()->json([
-                    'status' => 500,
-                    'message' => 'Something Went Wrong'
-                ], 500);
-            }
-        }
-    }
+        return to_route('documents.show', $document->id);
+   }
 
     /**
      * Remove the specified resource from storage.

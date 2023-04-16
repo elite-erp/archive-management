@@ -1,10 +1,12 @@
-import _ from "lodash";
+import {get} from "lodash";
 import trans from "./lang";
 import { router } from "@inertiajs/vue3";
 
-export const t = (key: string) => _.get(trans, key);
+export const t = (key: string) => get(trans, key);
 
-export const filterLinks = (links: any[]) => links.slice(1, links.length - 1);
+export function filterLinks<T>(links: T[]) {
+  return links.slice(1, links.length - 1);
+}
 
 export function fileSelector(selector: string) {
   let element: HTMLInputElement | null = document.querySelector(selector)

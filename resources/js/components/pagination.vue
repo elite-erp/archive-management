@@ -9,7 +9,7 @@
     <Link
       class="h-10 w-10 inline-flex justify-center items-center btn-icon hover:text-primary-500 hover:font-bold"
       :href="link.url"
-      v-for="(link, index) in filterLinks(list.links)"
+      v-for="(link, index) in filteredLinks"
       :key="index"
       v-html="link.label"
     />
@@ -23,7 +23,20 @@
 </template>
 <script lang="ts" setup>
 import { mdiArrowRight, mdiArrowLeft } from "@mdi/js";
+import { computed } from "vue";
 import { filterLinks } from "../utils";
+interface Props {
+  list: List;
+}
+interface List {
+  links: Link[];
+}
+interface Link {
+  url: string;
+  label: string;
+}
 
-defineProps(["list"]);
+const props = defineProps(["list"]) as Props;
+
+const filteredLinks = computed(() => filterLinks<Link>(props.list.links));
 </script>
