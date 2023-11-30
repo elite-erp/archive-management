@@ -18,7 +18,7 @@ class AuthController extends Controller
 
         $credentials = request(['name', 'password']);
         if (!Auth::attempt($credentials)) {
-            return to_route('/login', [
+            return to_route('login', [
                 'status_code' => 401,
                 'message' => 'Unauthorized'
             ]);
