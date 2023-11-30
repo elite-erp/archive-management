@@ -3,7 +3,7 @@
     <nav
       class="print:hidden flex justify-between items-center p-10 h-[88px] w-full"
     >
-      <img src="/assets/icons/logo-text.png" />
+      <img src="/logo-text.png" />
       <input
         type="search"
         class="border p-3 w-[390px] outline-none border-gray-300 rounded-lg bg-white h-[54px]"
